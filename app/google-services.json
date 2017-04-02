@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "708282265593",
+    "firebase_url": "https://whotunes-42d34.firebaseio.com",
+    "project_id": "whotunes-42d34",
+    "storage_bucket": "whotunes-42d34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708282265593:android:efc6fe4170643ca1",
+        "android_client_info": {
+          "package_name": "se.rickylagerkvist.themusicgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708282265593-3ddig0on6tu2ch22lomqg7h263tgqu5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "se.rickylagerkvist.themusicgame",
+            "certificate_hash": "BC9FDDDE27D6779888188C797E4CC50DC6971BBD"
+          }
+        },
+        {
+          "client_id": "708282265593-m1jrbnd9rc0cen9m70orupm71ebsa93l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHp_mPt67eNP0YwpDncVwHCseizuL8Z3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708282265593-m1jrbnd9rc0cen9m70orupm71ebsa93l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

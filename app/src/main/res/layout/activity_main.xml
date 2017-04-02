@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    tools:context="se.rickylagerkvist.whotune.view.SelectTracksAndPlayTracksActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/playerNr"
+        android:background="#222222">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello"
+            android:textSize="18sp"
+            android:id="@+id/playerNrTextView"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playerNr"
+        android:paddingTop="10dp"
+        android:background="#222222"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:id="@+id/playerNameStack">
+
+        <TextView
+            android:text="@string/name"
+            android:hint="@string/enter_you_name"
+            android:gravity="center_vertical"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent"
+            android:id="@+id/playerNameEditText"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:hint="@string/enter_you_name"
+            android:textColorHint="@android:color/white"
+            android:inputType="textCapWords"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchStack"
+        android:background="#222222"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/playerNameStack"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/track"
+            android:gravity="center_vertical"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:imeOptions="actionDone"
+            android:inputType="textFilter"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/search_for_song"
+            android:id="@+id/searchEditText"
+            />
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_weight="4"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_search_white_24dp"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchStack"
+        android:id="@+id/trackListView"></ListView>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:id="@+id/playStack"
+        android:visibility="invisible"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/track_card_imageView"/>
+
+        <TextView
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:textColor="#333333"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/trackTextView"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/track_card_imageView"
+            android:layout_toEndOf="@+id/track_card_imageView"/>
+
+        <Button
+            android:text="@string/select"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textAllCaps="true"
+            android:id="@+id/selectTrackButton"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
+            android:id="@+id/albumTextView"
+            android:layout_below="@id/trackTextView"
+            android:layout_toRightOf="@+id/track_card_imageView"
+            android:layout_toEndOf="@+id/track_card_imageView"/>
+
+        <ImageButton
+            android:src="@drawable/ic_skip_next_black_24dp"
+            android:layout_width="40dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textAllCaps="true"
+            android:id="@+id/nextTrackButton"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <ImageButton
+            android:src="@drawable/ic_pause_black_24dp"
+            android:layout_width="40dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textAllCaps="true"
+            android:id="@+id/pauseTrackButton"
+            android:textColor="@color/colorAccent"
+            android:layout_toLeftOf="@+id/nextTrackButton"
+            android:layout_toStartOf="@+id/nextTrackButton"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Who Tunes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_user_nr">Name user nr %1$s</string>
+    <string name="search_for_song">Search for song</string>
+    <string name="enter_you_name">Enter you name</string>
+    <string name="who_tunes">Who Tunes</string>
+    <string name="show_right_answer">Show right answer</string>
+    <string name="playing">Playing</string>
+    <string name="Player_">"Player "</string>
+    <string name="nr_of_players">Nr of players:</string>
+    <string name="name">Name</string>
+    <string name="track">Track</string>
+    <string name="select">select</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="play_again">Play again</string>
+</resources>
