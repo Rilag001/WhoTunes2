@@ -17,15 +17,17 @@
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".view.SelectNyOfPlayersActivity">
+
+        </activity>
+        <activity android:name=".view.ShowAnswersActivity"></activity>
+        <activity android:name=".view.LoginActivity"></activity>
+        <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ShowAnswersActivity"></activity>
-        <activity android:name=".view.LoginActivity"></activity>
-        <activity android:name=".LogInActivity"></activity>
     </application>
 
 </manifest>
