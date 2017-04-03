@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune;
+package se.rickylagerkvist.whotune.login;
 
 /**
  * Created by rickylagerkvist on 2017-04-03.

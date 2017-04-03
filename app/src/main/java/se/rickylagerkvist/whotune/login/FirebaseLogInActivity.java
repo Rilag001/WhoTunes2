@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune;
+package se.rickylagerkvist.whotune.login;
 
 import android.content.Intent;
 import android.preference.PreferenceManager;
@@ -29,10 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.view.LoginActivity;
 import se.rickylagerkvist.whotune.view.SelectNyOfPlayersActivity;
 
-public class LogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     SignInButton mSignInButton;
     GoogleApiClient mGoogleApiClient;
@@ -75,7 +74,7 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Intent startMainActivity = new Intent(LogInActivity.this, SelectNyOfPlayersActivity.class);
+                    Intent startMainActivity = new Intent(FirebaseLogInActivity.this, SelectNyOfPlayersActivity.class);
                     startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(startMainActivity);
@@ -152,7 +151,7 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
                         }
 
                         // start MainActivity
-                        Intent startMainActivity = new Intent(LogInActivity.this, SelectNyOfPlayersActivity.class);
+                        Intent startMainActivity = new Intent(FirebaseLogInActivity.this, SelectNyOfPlayersActivity.class);
                         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(startMainActivity);
@@ -162,7 +161,7 @@ public class LogInActivity extends AppCompatActivity implements GoogleApiClient.
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(LogInActivity.this, "Authentication failed.",
+                            Toast.makeText(FirebaseLogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
