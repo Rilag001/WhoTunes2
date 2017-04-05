@@ -28,11 +28,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.Profile;
 
-public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginPresenter.View {
 
     // member variables
     SignInButton mSignInButton;
@@ -42,6 +42,7 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myProfileRef;
+    private LoginPresenter presenter;
     // end region
 
     @Override
@@ -49,6 +50,8 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_log_in);
+
+        presenter = new LoginPresenter(this);
 
         mAuth = FirebaseAuth.getInstance();
 

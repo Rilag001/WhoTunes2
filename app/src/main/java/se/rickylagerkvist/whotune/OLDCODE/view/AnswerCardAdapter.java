@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.OLDCODE.models.GuessOrAnswer;
+import se.rickylagerkvist.whotune.data.GuessOrAnswer;
 
 /**
  * Created by Ricky on 2016-12-04.
@@ -42,9 +42,9 @@ public class AnswerCardAdapter extends ArrayAdapter<GuessOrAnswer> {
         // Populate the data into the template view using the data object
         playerName.setVisibility(View.VISIBLE);
         playerName.setText(model.getUserName() + " picked");
-        Glide.with(getContext()).load(model.getSelectedTrack().album.images.get(0).url).into(coverArt);
-        trackText.setText(model.getSelectedTrack().name);
-        albumText.setText(model.getSelectedTrack().album.name);
+        Glide.with(getContext()).load(model.getSelectedTrack().getAlbum().getImages().get(0).url).into(coverArt);
+        trackText.setText(model.getSelectedTrack().getName());
+        albumText.setText(model.getSelectedTrack().getAlbum().getName());
         // Return the completed view to render on screen
         return convertView;
     }

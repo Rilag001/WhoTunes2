@@ -2,8 +2,7 @@ package se.rickylagerkvist.whotune.data;
 
 import java.util.ArrayList;
 
-import se.rickylagerkvist.whotune.OLDCODE.models.GuessOrAnswer;
-import se.rickylagerkvist.whotune.data.SpotifyData.TrackObject;
+import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 
 /**
  * Created by Ricky on 2016-11-20.
@@ -14,7 +13,7 @@ public class Player {
     private String Name;
     private String profilePicUrl;
     private String Uri;
-    private TrackObject selectedTrack;
+    private Track selectedTrack;
     private ArrayList<GuessOrAnswer> GuessesList = new ArrayList<>();
     private int PointsForRightAnswer;
 
@@ -48,11 +47,11 @@ public class Player {
         Name = name;
     }
 
-    public TrackObject getSelectedTrack() {
+    public Track getSelectedTrack() {
         return selectedTrack;
     }
 
-    public void setSelectedTrack(TrackObject selectedTrack) {
+    public void setSelectedTrack(Track selectedTrack) {
         this.selectedTrack = selectedTrack;
     }
 

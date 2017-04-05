@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune;
+package se.rickylagerkvist.whotune.MainActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +21,12 @@ import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
 
+import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.menu.MenuFragment;
 import se.rickylagerkvist.whotune.utils.Utils;
 
 public class Main2Activity extends AppCompatActivity implements
-        PlayerNotificationCallback, ConnectionStateCallback {
+        PlayerNotificationCallback, ConnectionStateCallback, MainActivityPresenter.View {
 
     // Member variables for Spotify
     private static final String CLIENT_ID = "d2765d66afd94102adb14e41de533df0";
@@ -36,11 +37,14 @@ public class Main2Activity extends AppCompatActivity implements
     private Player spotifyPlayer;
     private static String SPOTIFY_PACKAGE_NAME = "com.spotify.music";
     // end region
+    private MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        presenter = new MainActivityPresenter(this);
 
         // init MenuFragment
         changeFragment(MenuFragment.newInstance(), false, null);

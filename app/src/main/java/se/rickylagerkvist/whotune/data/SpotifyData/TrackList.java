@@ -6,5 +6,13 @@ package se.rickylagerkvist.whotune.data.SpotifyData;
 
 public class TrackList {
 
-    public TracksObject tracks;
+    private Tracks tracks;
+
+    public Tracks getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(Tracks tracks) {
+        this.tracks = tracks;
+    }
 }

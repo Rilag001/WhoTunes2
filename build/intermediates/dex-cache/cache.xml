@@ -12,6 +12,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.5.1/bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc/butterknife-annotations-8.5.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.5.1_f80e518d3ea32cfb2f717761b300c747d696cf5b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/rickylagerkvist/.android/build-cache/1fbd9550201323404571534740e336ac033f5ef2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="19f281a785ca0eb5f6799fc7bf7ca199a9ca1e8b">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_99534c17f2dddada3c5de506c902c019ac13cd92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"

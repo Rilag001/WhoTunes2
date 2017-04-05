@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:id="@+id/rl_select_track"
     tools:context="se.rickylagerkvist.whotune.selectTrack.SelectTrackFragment">
 
     <LinearLayout
@@ -19,9 +20,10 @@
             android:text="@string/track"
             android:gravity="center_vertical"
             android:textAllCaps="true"
+            android:layout_gravity="center"
             android:textColor="@color/colorAccent"
             android:layout_width="50dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             android:layout_weight="1"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:inputType="textFilter"
             android:background="@android:color/transparent"
             android:textColor="@android:color/white"
@@ -52,13 +54,20 @@
 
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:layout_height="wrap_content"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_below="@+id/searchStack"
-        android:id="@+id/trackListView">
-    </ListView>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_trackList">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

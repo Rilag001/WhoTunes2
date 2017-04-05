@@ -20,11 +20,10 @@ import java.util.Date;
 
 import se.rickylagerkvist.whotune.data.Admin;
 import se.rickylagerkvist.whotune.data.GameState;
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.data.Player;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
-import se.rickylagerkvist.whotune.gamesList.GamesFragment;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 
 /**

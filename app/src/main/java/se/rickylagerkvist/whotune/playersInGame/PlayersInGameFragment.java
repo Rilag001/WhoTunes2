@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.data.Admin;
 import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.data.Player;
@@ -28,7 +28,7 @@ import se.rickylagerkvist.whotune.selectTrack.SelectTrackFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayersInGameFragment extends Fragment {
+public class PlayersInGameFragment extends Fragment implements PlayersInGamePresenter.View {
 
     // member variables
     private ListView listView;
@@ -38,6 +38,7 @@ public class PlayersInGameFragment extends Fragment {
     private String GAME_NODE;
     private ImageView ivExit;
     private boolean isAdmin;
+    private PlayersInGamePresenter presenter;
     // end region
 
     public PlayersInGameFragment() {
@@ -56,6 +57,8 @@ public class PlayersInGameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_players_in_game, container, false);
+
+        presenter = new PlayersInGamePresenter(this);
 
         listView = (ListView) rootView.findViewById(R.id.lv_players);
         ivExit = (ImageView) rootView.findViewById(R.id.iv_close_players_fragment);
@@ -128,7 +131,7 @@ public class PlayersInGameFragment extends Fragment {
         adapter = new PlayersCardAdapter(
                 getActivity(),
                 Player.class,
-                R.layout.games_list_layout,
+                R.layout.player_list_layout,
                 playersRef);
         listView.setAdapter(adapter);
     }

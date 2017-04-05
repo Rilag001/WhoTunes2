@@ -1,31 +1,27 @@
 package se.rickylagerkvist.whotune.gamesList;
 
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import se.rickylagerkvist.whotune.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
-import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GamesFragment extends Fragment {
+public class GamesFragment extends Fragment implements GamesPresenter.View {
 
     ImageView ivExit;
+    private GamesPresenter presenter;
 
     public GamesFragment() {
         // Required empty public constructor
@@ -44,6 +40,8 @@ public class GamesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_games, container, false);
+
+        presenter = new GamesPresenter(this);
 
         DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("games");
         ListView list = (ListView) rootView.findViewById(R.id.lw_games);

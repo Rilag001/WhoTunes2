@@ -25,15 +25,11 @@ public class PlayersCardAdapter extends FirebaseListAdapter<Player> {
     @Override
     protected void populateView(View v, Player model, int position) {
 
-        TextView name = (TextView) v.findViewById(R.id.tv_name);
-        CircleImageView profilePic = (CircleImageView) v.findViewById(R.id.circleIV);
-        TextView createdBy = (TextView) v.findViewById(R.id.tv_created_by);
-        TextView createdDate = (TextView) v.findViewById(R.id.tv_created_date);
+        TextView name = (TextView) v.findViewById(R.id.tv_player_name);
+        CircleImageView profilePic = (CircleImageView) v.findViewById(R.id.player_circleIV);
 
         name.setText(model.getName());
         Glide.with(v.getContext()).load(model.getProfilePicUrl()).into(profilePic);
-        createdBy.setText("");
-        createdDate.setText("");
 
     }
 }

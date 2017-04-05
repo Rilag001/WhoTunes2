@@ -47,10 +47,9 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.OLDCODE.models.Round;
+import se.rickylagerkvist.whotune.data.Round;
 import se.rickylagerkvist.whotune.data.SpotifyData.TrackList;
-import se.rickylagerkvist.whotune.data.SpotifyData.TrackObject;
-import se.rickylagerkvist.whotune.client.APIUrlPaths;
+import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 import se.rickylagerkvist.whotune.client.HttpUtils;
 
 import static se.rickylagerkvist.whotune.R.id.searchEditText;
@@ -78,7 +77,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
 
 
     // list
-    ArrayList<TrackObject> mTrackObjects = new ArrayList<>();
+    ArrayList<Track> mTrackObjects = new ArrayList<>();
     TrackCardAdapter mTrackCardAdapter;
 
     // round
@@ -87,7 +86,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
     Round round = new Round();
     String currentTrackUri;
     ArrayList<String> tracks = new ArrayList<>();
-    TrackObject selectedTrack;
+    Track selectedTrack;
     Boolean IsPlaying;
 
     @Override
@@ -226,7 +225,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
                         round.shuffle();
 
                         for (se.rickylagerkvist.whotune.data.Player item : round.getPlayers()) {
-                            tracks.add(item.getSelectedTrack().uri);
+                            tracks.add(item.getSelectedTrack().getUri());
                         }
 
                         mNextButton.setVisibility(View.GONE);
@@ -299,11 +298,11 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
         });
     }
 
-    private void setPlayUI(TrackObject track) {
+    private void setPlayUI(Track track) {
 
-        Glide.with(this).load(track.album.images.get(0).url).into(mTrackCardImageView);
-        mTrack.setText(track.name);
-        mAlbum.setText(track.album.name);
+        Glide.with(this).load(track.getAlbum().getImages().get(0).url).into(mTrackCardImageView);
+        mTrack.setText(track.getName());
+        mAlbum.setText(track.getAlbum().getName());
 
         if(mPlayStack.getVisibility() == View.INVISIBLE){
             animateUp();
@@ -346,7 +345,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
 
         String newSearchText = searchText.replaceAll(" ", "+");
 
-        HttpUtils.get(APIUrlPaths.searchTrack.replace("{search}", newSearchText), null, new JsonHttpResponseHandler(){
+        HttpUtils.get(HttpUtils.SEARCH_TRACK_URL.replace("{search}", newSearchText), null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -356,7 +355,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
 
                 mTrackObjects.clear();
                 mTrackCardAdapter.clear();
-                mTrackObjects = tacksList.tracks.items;
+                mTrackObjects = tacksList.getTracks().getItems();
                 mTrackCardAdapter.addAll(mTrackObjects);
                 mTrackCardAdapter.notifyDataSetChanged();
             }
@@ -418,7 +417,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
 
                                 for (se.rickylagerkvist.whotune.data.Player item : round.getPlayers()) {
 
-                                    if(item.getSelectedTrack().uri.equals(currentTrackUri)){
+                                    if(item.getSelectedTrack().getUri().equals(currentTrackUri)){
                                         setPlayUI(item.getSelectedTrack());
                                     }
                                 }

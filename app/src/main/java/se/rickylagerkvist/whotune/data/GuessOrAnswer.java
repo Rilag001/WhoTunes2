@@ -1,6 +1,6 @@
-package se.rickylagerkvist.whotune.OLDCODE.models;
+package se.rickylagerkvist.whotune.data;
 
-import se.rickylagerkvist.whotune.data.SpotifyData.TrackObject;
+import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 
 /**
  * Created by Ricky on 2016-12-04.
@@ -9,9 +9,9 @@ import se.rickylagerkvist.whotune.data.SpotifyData.TrackObject;
 public class GuessOrAnswer {
 
     private String UserName;
-    private TrackObject SelectedTrack;
+    private Track SelectedTrack;
 
-    public GuessOrAnswer(String userName, TrackObject selectedTrack){
+    public GuessOrAnswer(String userName, Track selectedTrack){
         UserName = userName;
         SelectedTrack = selectedTrack;
     }
@@ -24,11 +24,11 @@ public class GuessOrAnswer {
         UserName = userName;
     }
 
-    public TrackObject getSelectedTrack() {
+    public Track getSelectedTrack() {
         return SelectedTrack;
     }
 
-    public void setSelectedTrack(TrackObject selectedTrack) {
+    public void setSelectedTrack(Track selectedTrack) {
         SelectedTrack = selectedTrack;
     }
 }

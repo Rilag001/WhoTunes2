@@ -11,7 +11,7 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.Query;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;

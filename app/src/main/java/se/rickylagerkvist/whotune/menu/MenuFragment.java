@@ -17,20 +17,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import se.rickylagerkvist.whotune.OLDCODE.view.LoginActivity;
 import se.rickylagerkvist.whotune.gamesList.GamesFragment;
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.login.FirebaseLogInActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements MenuPresenter.View {
 
     private Button btnCreateGame, btnJoinGame, btnLogOut;
     private DatabaseReference gamesRef;
     ImageView mInfoImage;
+    MenuPresenter presenter;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -43,7 +43,6 @@ public class MenuFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +53,8 @@ public class MenuFragment extends Fragment {
         btnJoinGame = (Button) rootView.findViewById(R.id.btn_join_game);
         btnLogOut = (Button) rootView.findViewById(R.id.btn_logout);
         mInfoImage = (ImageView) rootView.findViewById(R.id.iv_infoImage);
+
+        presenter = new MenuPresenter(this);
 
         gamesRef = FirebaseDatabase.getInstance().getReference("games");
 

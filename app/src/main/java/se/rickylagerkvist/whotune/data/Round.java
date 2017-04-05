@@ -1,9 +1,7 @@
-package se.rickylagerkvist.whotune.OLDCODE.models;
+package se.rickylagerkvist.whotune.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import se.rickylagerkvist.whotune.data.Player;
 
 /**
  * Created by Ricky on 2016-11-20.

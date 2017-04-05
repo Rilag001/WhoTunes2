@@ -9,20 +9,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import cz.msebera.android.httpclient.Header;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.OLDCODE.models.GuessOrAnswer;
-import se.rickylagerkvist.whotune.OLDCODE.models.Round;
-import se.rickylagerkvist.whotune.client.APIUrlPaths;
-import se.rickylagerkvist.whotune.client.HttpUtils;
+import se.rickylagerkvist.whotune.data.GuessOrAnswer;
+import se.rickylagerkvist.whotune.data.Round;
 
 public class ShowAnswersActivity extends AppCompatActivity {
 
@@ -99,18 +93,5 @@ public class ShowAnswersActivity extends AppCompatActivity {
 
     public void postPlaylist(String userId) throws JSONException {
 
-
-        HttpUtils.post(APIUrlPaths.postPlayList.replace("{user_id}", userId), null, new JsonHttpResponseHandler(){
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-
-            }
-        });
     }
 }

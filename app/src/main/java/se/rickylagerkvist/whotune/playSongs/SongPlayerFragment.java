@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import se.rickylagerkvist.whotune.Main2Activity;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.menu.MenuFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SongPlayerFragment extends Fragment {
+public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.View {
 
+    private SongPlayerPresenter presenter;
 
     public SongPlayerFragment() {
         // Required empty public constructor
@@ -33,7 +33,11 @@ public class SongPlayerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_song_player, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_song_player, container, false);
+
+        presenter = new SongPlayerPresenter(this);
+
+        return rootView;
     }
 
     public void play(String uri){
