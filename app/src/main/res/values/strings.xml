@@ -23,4 +23,6 @@
     <string name="add_game">Add game</string>
     <string name="game_created_by">Created by %1$s</string>
     <string name="start_game">Start game</string>
+    <string name="only_admin_can_start_game">Only admin can start game</string>
+    <string name="log_out">Log out</string>
 </resources>

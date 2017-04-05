@@ -31,7 +31,7 @@ public class SelectTrackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_select_fragemtn, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_select_track_fragment, container, false);
         return rootView;
     }
 

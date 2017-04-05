@@ -7,26 +7,48 @@
     android:background="@color/colorPrimary"
     tools:context="se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment">
 
-    <TextView
-        android:id="@+id/tv_players_head"
+    <LinearLayout
+        android:id="@+id/fragment_players_in_game_heading"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:text="@string/Player_"/>
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_close_players_fragment"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_close_white_24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_players_head"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:textSize="20sp"
+            android:text="@string/Player_"/>
+
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv_players"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/fragment_players_in_game_heading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="45dp">
     </ListView>
 
     <Button
         android:id="@+id/btn_start_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:text="@string/start_game"/>
 
 </RelativeLayout>

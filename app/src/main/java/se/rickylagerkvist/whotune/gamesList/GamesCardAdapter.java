@@ -13,6 +13,7 @@ import com.google.firebase.database.Query;
 import de.hdodenhof.circleimageview.CircleImageView;
 import se.rickylagerkvist.whotune.Main2Activity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.Utils;
@@ -35,22 +36,28 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
         TextView createdBy = (TextView) v.findViewById(R.id.tv_created_by);
         TextView createdDate = (TextView) v.findViewById(R.id.tv_created_date);
 
-        name.setText(model.getName());
-        Glide.with(v.getContext()).load(model.getAdmin().getCreatorProfilePicUrl()).into(profilePic);
-        createdBy.setText(v.getResources().getString(R.string.game_created_by, model.getAdmin().getCreatorName()));
+        if(model.getGameState().equals(GameState.OPEN)){
+            name.setText(model.getName());
+            Glide.with(v.getContext()).load(model.getAdmin().getCreatorProfilePicUrl()).into(profilePic);
+            createdBy.setText(v.getResources().getString(R.string.game_created_by, model.getAdmin().getCreatorName()));
 
-        createdDate.setText(Utils.SIMPLE_DATE_FORMAT.format(model.getCreatedDate()));
+            createdDate.setText(Utils.SIMPLE_DATE_FORMAT.format(model.getCreatedDate()));
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String gameId = GamesCardAdapter.this.getRef(position).getKey();
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String gameId = GamesCardAdapter.this.getRef(position).getKey();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("GAME_ID", gameId);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("GAME_ID", gameId);
 
-                ((Main2Activity) v.getContext()).changeFragment(PlayersInGameFragment.newInstance(), true, bundle);
-            }
-        });
+                    ((Main2Activity) v.getContext()).changeFragment(PlayersInGameFragment.newInstance(), true, bundle);
+                }
+            });
+        } else {
+            v.setVisibility(View.GONE);
+        }
+
+
     }
 }
