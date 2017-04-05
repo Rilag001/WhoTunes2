@@ -1,0 +1,32 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context="se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment">
+
+    <TextView
+        android:id="@+id/tv_players_head"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Player_"/>
+
+    <ListView
+        android:id="@+id/lv_players"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+    <Button
+        android:id="@+id/btn_start_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/start_game"/>
+
+</RelativeLayout>

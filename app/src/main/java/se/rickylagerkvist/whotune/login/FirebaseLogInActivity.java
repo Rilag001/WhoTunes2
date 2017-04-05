@@ -28,19 +28,21 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import se.rickylagerkvist.whotune.Main2Activity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.view.SelectNyOfPlayersActivity;
+import se.rickylagerkvist.whotune.data.Profile;
 
-public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    // member variables
     SignInButton mSignInButton;
     GoogleApiClient mGoogleApiClient;
     private static final String TAG = "SignInactivity";
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private DatabaseReference myProfileRef;
+    // end region
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +76,11 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Intent startMainActivity = new Intent(FirebaseLogInActivity.this, SelectNyOfPlayersActivity.class);
+                    Intent startMainActivity = new Intent(FirebaseLogInActivity.this, Main2Activity.class);
                     startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(startMainActivity);
                 }
-                // ...
             }
         };
     }
@@ -151,7 +152,7 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
                         }
 
                         // start MainActivity
-                        Intent startMainActivity = new Intent(FirebaseLogInActivity.this, SelectNyOfPlayersActivity.class);
+                        Intent startMainActivity = new Intent(FirebaseLogInActivity.this, Main2Activity.class);
                         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(startMainActivity);

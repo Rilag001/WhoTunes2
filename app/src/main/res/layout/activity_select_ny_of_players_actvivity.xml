@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#333333"
-    tools:context="se.rickylagerkvist.whotune.view.SelectNyOfPlayersActivity">
+    tools:context=".OLDCODE.view.SelectNyOfPlayersActivity">
 
     <ImageView
         android:layout_width="match_parent"

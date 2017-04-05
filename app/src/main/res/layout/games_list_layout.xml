@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:padding="20dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleIV"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:hint="Name namesson"
+        android:id="@+id/tv_name"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/circleIV"
+        app:layout_constraintBottom_toTopOf="@+id/tv_created_by"/>
+
+    <TextView
+        android:hint="Name namesson"
+        android:id="@+id/tv_created_by"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/circleIV"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:hint="2017-09-20 11:20"
+        android:id="@+id/tv_created_date"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/circleIV"
+        app:layout_constraintTop_toBottomOf="@+id/tv_created_by"/>
+
+</android.support.constraint.ConstraintLayout>

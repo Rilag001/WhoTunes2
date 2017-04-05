@@ -10,17 +10,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SelectTracksAndPlayTracksActivity"></activity>
+        <activity android:name=".OLDCODE.view.SelectTracksAndPlayTracksActivity" />
 
         <!-- Needed for LoginActivity to work -->
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".view.SelectNyOfPlayersActivity">
-
-        </activity>
-        <activity android:name=".view.ShowAnswersActivity"></activity>
-        <activity android:name=".view.LoginActivity"></activity>
+        <activity android:name=".OLDCODE.view.SelectNyOfPlayersActivity"></activity>
+        <activity android:name=".OLDCODE.view.ShowAnswersActivity" />
+        <activity android:name=".OLDCODE.view.LoginActivity" />
         <activity android:name=".login.FirebaseLogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>
