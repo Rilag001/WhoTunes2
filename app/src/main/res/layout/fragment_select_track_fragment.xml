@@ -70,4 +70,62 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:id="@+id/selectedTrackStack"
+        android:visibility="invisible"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/iv_track_card"/>
+
+        <TextView
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:textColor="#333333"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_track"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_track_card"
+            android:layout_toEndOf="@+id/iv_track_card"/>
+
+        <Button
+            android:text="@string/select"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textAllCaps="true"
+            android:id="@+id/btn_selectTrack"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginEnd="80dp"
+            android:id="@+id/tv_album"
+            android:layout_below="@id/tv_track"
+            android:layout_toRightOf="@+id/iv_track_card"
+            android:layout_toEndOf="@+id/iv_track_card"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

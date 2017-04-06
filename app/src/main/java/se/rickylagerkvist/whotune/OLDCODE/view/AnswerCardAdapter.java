@@ -36,7 +36,7 @@ public class AnswerCardAdapter extends ArrayAdapter<GuessOrAnswer> {
 
         // Lookup view for data population
         TextView playerName = (TextView) convertView.findViewById(R.id.name_of_player_textView);
-        ImageView coverArt = (ImageView) convertView.findViewById(R.id.track_card_imageView);
+        ImageView coverArt = (ImageView) convertView.findViewById(R.id.iv_track_card);
         TextView trackText = (TextView) convertView.findViewById(R.id.trackTextView);
         TextView albumText = (TextView) convertView.findViewById(R.id.albumTextView);
         // Populate the data into the template view using the data object

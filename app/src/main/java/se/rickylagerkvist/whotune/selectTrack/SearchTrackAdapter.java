@@ -1,6 +1,5 @@
 package se.rickylagerkvist.whotune.selectTrack;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.SpotifyData.Track;
+import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 
 /**
  * Created by rickylagerkvist on 2017-04-05.
@@ -25,14 +26,16 @@ import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.MyViewHolder> {
 
     private List<Track> tracks;
+    private SearchTrackAdapterInterFace view;
 
-    public SearchTrackAdapter(List<Track> tracks) {
+    public SearchTrackAdapter(List<Track> tracks, SearchTrackAdapterInterFace view) {
         this.tracks = tracks;
+        this.view = view;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.track_card_imageView)
+        @BindView(R.id.iv_track_card)
         ImageView coverArt;
         @BindView(R.id.trackTextView) TextView trackText;
         @BindView(R.id.albumTextView) TextView albumText;
@@ -75,7 +78,7 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         holder.trackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO change fragment
+                view.setPlayUI(track);
             }
         });
     }
@@ -89,5 +92,9 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         tracks.clear();
         tracks.addAll(modelList);
         notifyDataSetChanged();
+    }
+
+    interface SearchTrackAdapterInterFace{
+        void setPlayUI(Track track);
     }
 }

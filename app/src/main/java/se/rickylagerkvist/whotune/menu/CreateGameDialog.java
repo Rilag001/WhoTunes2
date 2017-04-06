@@ -86,6 +86,7 @@ public class CreateGameDialog extends DialogFragment {
 
         if(!name.isEmpty()){
 
+            // create fields for WhoTuneGame object
             String photoUrl = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("PHOTO_URL", "");
             String displayName = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("DISPLAY_NAME", "");
             String userUid = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("USERUID","");
@@ -93,10 +94,10 @@ public class CreateGameDialog extends DialogFragment {
             Admin admin = new Admin(photoUrl, displayName, userUid);
 
             ArrayList<Player> players = new ArrayList<>();
-            players.add(new Player(displayName, photoUrl, userUid));
 
             ArrayList<String> playList = new ArrayList<>();
 
+            // save game to db
             DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("games");
             String key = gamesRef.push().getKey();
             gamesRef.child(key).setValue(new WhoTuneGame(
@@ -107,7 +108,10 @@ public class CreateGameDialog extends DialogFragment {
                     playList,
                     GameState.OPEN
             ));
+            // save player (you) to db
+            gamesRef.child(key).child("players").child(userUid).setValue(new Player(displayName, photoUrl, userUid));
 
+            // bundle key send to PlayersInGameFragment
             Bundle bundle = new Bundle();
             bundle.putString("GAME_ID", key);
 

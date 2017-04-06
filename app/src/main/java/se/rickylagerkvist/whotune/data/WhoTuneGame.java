@@ -75,4 +75,8 @@ public class WhoTuneGame {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public void addPlayerToPlayers(Player player){
+        players.add(player);
+    }
 }

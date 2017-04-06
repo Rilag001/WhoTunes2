@@ -6,40 +6,40 @@ package se.rickylagerkvist.whotune.data;
 
 public class Profile {
 
-    private String mName;
-    private String mPhotoUri;
-    private String mAboutMe;
+    private String name;
+    private String photoUri;
+    private String points;
 
     public Profile() {
     }
 
-    public Profile(String mName, String mPhotoUri, String mAboutMe) {
-        this.mName = mName;
-        this.mPhotoUri = mPhotoUri;
-        this.mAboutMe = mAboutMe;
+    public Profile(String name, String photoUri, String points) {
+        this.name = name;
+        this.photoUri = photoUri;
+        this.points = points;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getmPhotoUri() {
-        return mPhotoUri;
+    public String getPhotoUri() {
+        return photoUri;
     }
 
-    public void setmPhotoUri(String mPhotoUri) {
-        this.mPhotoUri = mPhotoUri;
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
-    public String getmAboutMe() {
-        return mAboutMe;
+    public String getPoints() {
+        return points;
     }
 
-    public void setmAboutMe(String mAboutMe) {
-        this.mAboutMe = mAboutMe;
+    public void setPoints(String points) {
+        this.points = points;
     }
 }

@@ -13,13 +13,19 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 
@@ -32,7 +38,7 @@ import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SelectTrackFragment extends Fragment implements SelectTrackPresenter.View{
+public class SelectTrackFragment extends Fragment implements SelectTrackPresenter.View, SearchTrackAdapter.SearchTrackAdapterInterFace{
 
     private SelectTrackPresenter presenter;
     private EditText edtSearch;
@@ -41,8 +47,12 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
     private SearchTrackAdapter adapter;
     private RecyclerView recyclerView;
     private ImageButton searchButton;
-    private TextView noTrackFoundTextView;
+    private TextView noTrackFoundTextView, tvTrack, tvAlbum;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RelativeLayout selectedTrackStack;
+    private ImageView ivTrackCard;
+    Button btnSelectTrack;
+
 
     public SelectTrackFragment() {
         // Required empty public constructor
@@ -69,7 +79,7 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_trackList);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new SearchTrackAdapter(tracks);
+        adapter = new SearchTrackAdapter(tracks, this);
         recyclerView.setAdapter(adapter);
 
         // layouts
@@ -77,6 +87,11 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         searchButton = (ImageButton) rootView.findViewById(R.id.searchButton);
         edtSearch = (EditText) rootView.findViewById(R.id.searchEditText);
+        selectedTrackStack = (RelativeLayout) rootView.findViewById(R.id.selectedTrackStack);
+        ivTrackCard = (ImageView) rootView.findViewById(R.id.iv_track_card);
+        tvTrack = (TextView) rootView.findViewById(R.id.tv_track);
+        tvAlbum = (TextView) rootView.findViewById(R.id.tv_album);
+        btnSelectTrack = (Button) rootView.findViewById(R.id.btn_selectTrack);
 
         // search button
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -147,4 +162,23 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         Snackbar snackbar = Snackbar.make(mainLayout, "Search is empty!", Snackbar.LENGTH_LONG);
         snackbar.show();
     }
+
+    public void setPlayUI(Track track) {
+
+        Glide.with(this).load(track.getAlbum().getImages().get(0).url).into(ivTrackCard);
+        tvTrack.setText(track.getName());
+        tvAlbum.setText(track.getAlbum().getName());
+
+        if(selectedTrackStack.getVisibility() == View.INVISIBLE){
+            animateUp();
+        }
+    }
+
+    private void animateUp(){
+        Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
+                R.anim.bottom_up);
+        selectedTrackStack.startAnimation(bottomUp);
+        selectedTrackStack.setVisibility(View.VISIBLE);
+    }
+
 }

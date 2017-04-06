@@ -34,7 +34,7 @@ public class TrackCardAdapter extends ArrayAdapter<Track> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.track_card, parent, false);
         }
         // Lookup view for data population
-        ImageView coverArt = (ImageView) convertView.findViewById(R.id.track_card_imageView);
+        ImageView coverArt = (ImageView) convertView.findViewById(R.id.iv_track_card);
         TextView trackText = (TextView) convertView.findViewById(R.id.trackTextView);
         TextView albumText = (TextView) convertView.findViewById(R.id.albumTextView);
         // Populate the data into the template view using the data object

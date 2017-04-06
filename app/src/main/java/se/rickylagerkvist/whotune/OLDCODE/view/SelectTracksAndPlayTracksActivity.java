@@ -107,7 +107,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
         mSearchEditText = (EditText) findViewById(searchEditText);
         mSearchButton = (ImageButton) findViewById(R.id.searchButton);
         mTracksListView = (ListView) findViewById(R.id.trackListView);
-        mTrackCardImageView = (ImageView) findViewById(R.id.track_card_imageView);
+        mTrackCardImageView = (ImageView) findViewById(R.id.iv_track_card);
         mTrack = (TextView) findViewById(R.id.trackTextView);
         mAlbum = (TextView) findViewById(R.id.albumTextView);
         mPlayStack = (RelativeLayout) findViewById(R.id.playStack);
