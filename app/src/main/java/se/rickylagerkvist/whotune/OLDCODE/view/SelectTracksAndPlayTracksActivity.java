@@ -50,7 +50,7 @@ import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.Round;
 import se.rickylagerkvist.whotune.data.SpotifyData.TrackList;
 import se.rickylagerkvist.whotune.data.SpotifyData.Track;
-import se.rickylagerkvist.whotune.client.HttpUtils;
+import se.rickylagerkvist.whotune.client.SpotifyClient;
 
 import static se.rickylagerkvist.whotune.R.id.searchEditText;
 
@@ -345,7 +345,7 @@ public class SelectTracksAndPlayTracksActivity extends Activity implements
 
         String newSearchText = searchText.replaceAll(" ", "+");
 
-        HttpUtils.get(HttpUtils.SEARCH_TRACK_URL.replace("{search}", newSearchText), null, new JsonHttpResponseHandler(){
+        SpotifyClient.get(SpotifyClient.SEARCH_TRACK_URL.replace("{search}", newSearchText), null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

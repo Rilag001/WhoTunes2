@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 
+import se.rickylagerkvist.whotune.client.FireBaseRef;
 import se.rickylagerkvist.whotune.data.Admin;
 import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
@@ -25,6 +25,7 @@ import se.rickylagerkvist.whotune.data.Player;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
  * Created by rickylagerkvist on 2017-04-04.
@@ -64,7 +65,7 @@ public class CreateGameDialog extends DialogFragment {
         editTextName = (EditText) rootView.findViewById(R.id.et_create_game_name);
 
         builder.setView(rootView)
-                .setTitle("Create game")
+                .setTitle(R.string.create_game)
                 .setNegativeButton(getActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -74,33 +75,32 @@ public class CreateGameDialog extends DialogFragment {
                 .setPositiveButton(getActivity().getString(R.string.add_game), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        addGameToFirebase();
+                        addGameToFireBase();
                     }
                 });
         return builder.create();
     }
 
-    private void addGameToFirebase() {
+    private void addGameToFireBase() {
 
         String name =  editTextName.getText().toString();
 
         if(!name.isEmpty()){
 
             // create fields for WhoTuneGame object
-            String photoUrl = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("PHOTO_URL", "");
-            String displayName = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("DISPLAY_NAME", "");
-            String userUid = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("USERUID","");
-
+            String photoUrl = SharedPrefUtils.getPhotoUrl(getActivity());
+            String displayName = SharedPrefUtils.getDisplayName(getActivity());
+            String userUid = SharedPrefUtils.getUid(getActivity());
             Admin admin = new Admin(photoUrl, displayName, userUid);
 
             ArrayList<Player> players = new ArrayList<>();
 
             ArrayList<String> playList = new ArrayList<>();
+            players.add(new Player(displayName, photoUrl, userUid));
 
             // save game to db
-            DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("games");
-            String key = gamesRef.push().getKey();
-            gamesRef.child(key).setValue(new WhoTuneGame(
+            String key = FireBaseRef.games.push().getKey();
+            FireBaseRef.games.child(key).setValue(new WhoTuneGame(
                     name,
                     admin,
                     new Date(),
@@ -108,8 +108,6 @@ public class CreateGameDialog extends DialogFragment {
                     playList,
                     GameState.OPEN
             ));
-            // save player (you) to db
-            gamesRef.child(key).child("players").child(userUid).setValue(new Player(displayName, photoUrl, userUid));
 
             // bundle key send to PlayersInGameFragment
             Bundle bundle = new Bundle();

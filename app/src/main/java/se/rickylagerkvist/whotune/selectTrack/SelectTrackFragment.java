@@ -32,26 +32,32 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.SpotifyData.Track;
+import se.rickylagerkvist.whotune.playersHasSelectedTrack.PlayersHasSelectedTrackFragment;
+import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SelectTrackFragment extends Fragment implements SelectTrackPresenter.View, SearchTrackAdapter.SearchTrackAdapterInterFace{
 
+    //member variables
     private SelectTrackPresenter presenter;
-    private EditText edtSearch;
-    private RelativeLayout mainLayout;
     private List<Track> tracks = new ArrayList<>();
     private SearchTrackAdapter adapter;
     private RecyclerView recyclerView;
+    private EditText edtSearch;
+    private RelativeLayout mainLayout;
     private ImageButton searchButton;
-    private TextView noTrackFoundTextView, tvTrack, tvAlbum;
+    private TextView tvTrack, tvAlbum;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RelativeLayout selectedTrackStack;
     private ImageView ivTrackCard;
-    Button btnSelectTrack;
+    private Button btnSelectTrack;
+    private Track selectedTrack;
+    //end region
 
 
     public SelectTrackFragment() {
@@ -121,6 +127,19 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
             }
         });
 
+        //
+        btnSelectTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(selectedTrack != null){
+                    Bundle bundle = new Bundle();
+                    ((Main2Activity) v.getContext()).changeFragment(PlayersHasSelectedTrackFragment.newInstance(), true, bundle);
+                    // TODO save track to db
+                }
+            }
+        });
+
         return rootView;
     }
 
@@ -163,7 +182,8 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         snackbar.show();
     }
 
-    public void setPlayUI(Track track) {
+    // set selected track UI
+    public void setSelectedTrackUI(Track track) {
 
         Glide.with(this).load(track.getAlbum().getImages().get(0).url).into(ivTrackCard);
         tvTrack.setText(track.getName());
@@ -172,8 +192,9 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         if(selectedTrackStack.getVisibility() == View.INVISIBLE){
             animateUp();
         }
-    }
 
+        selectedTrack = track;
+    }
     private void animateUp(){
         Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
                 R.anim.bottom_up);

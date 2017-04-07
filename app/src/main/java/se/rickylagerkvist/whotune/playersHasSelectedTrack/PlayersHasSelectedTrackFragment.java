@@ -11,8 +11,10 @@ import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 
+import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.SpotifyData.Image;
+import se.rickylagerkvist.whotune.playSongs.SongPlayerFragment;
 import se.rickylagerkvist.whotune.playersInGame.PlayersCardAdapter;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
 
@@ -46,6 +48,16 @@ public class PlayersHasSelectedTrackFragment extends Fragment implements Players
         View rootView = inflater.inflate(R.layout.fragment_playershas_selected_track, container, false);
 
         presenter = new PlayersHasSelecterTrackPresenter(this);
+        listView = (ListView) rootView.findViewById(R.id.lv_players_that_has_selected_track);
+
+        btnPlayTracks = (Button) rootView.findViewById(R.id.btn_play_tracks);
+        btnPlayTracks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                ((Main2Activity)v.getContext()).changeFragment(SongPlayerFragment.newInstance(), false, bundle);
+            }
+        });
 
         return rootView;
     }

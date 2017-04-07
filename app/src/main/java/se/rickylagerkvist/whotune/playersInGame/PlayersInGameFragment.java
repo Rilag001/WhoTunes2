@@ -115,6 +115,7 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
     }
 
     private void setUpFirebaseRefs() {
+
         GAME_NODE = getArguments().getString("GAME_ID");
 
         gameRef = FirebaseDatabase.getInstance()

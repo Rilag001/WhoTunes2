@@ -6,6 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
@@ -16,6 +21,12 @@ import se.rickylagerkvist.whotune.R;
 public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.View {
 
     private SongPlayerPresenter presenter;
+    private ImageView coverArt;
+    private TextView trackName, artist, trackProgress, trackLength;
+    private ImageView playPause, nextTrack, previousTrack;
+    private ProgressBar trackProgressBar;
+    private ArrayList<String> tracksUri = new ArrayList<>();
+
 
     public SongPlayerFragment() {
         // Required empty public constructor
@@ -37,6 +48,43 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
 
         presenter = new SongPlayerPresenter(this);
 
+        // progressbar
+        trackProgressBar = (ProgressBar) rootView.findViewById(R.id.progressbar_player_track);
+        trackProgressBar.setVisibility(ProgressBar.VISIBLE);
+        trackProgressBar.setProgress(20);
+        trackProgressBar.setMax(100);
+
+        // track UI
+        coverArt = (ImageView) rootView.findViewById(R.id.iv_player_coverart);
+        trackName = (TextView) rootView.findViewById(R.id.tv_track);
+        artist = (TextView) rootView.findViewById(R.id.tv_player_artist);
+        trackProgress = (TextView) rootView.findViewById(R.id.tv_track_progress);
+        trackLength = (TextView) rootView.findViewById(R.id.tv_track_length);
+        playPause = (ImageView) rootView.findViewById(R.id.iv_player_play_pause);
+        nextTrack = (ImageView) rootView.findViewById(R.id.iv_player_skip_next);
+        previousTrack = (ImageView) rootView.findViewById(R.id.iv_player_skip_previous);
+
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        nextTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        previousTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return rootView;
     }
 
@@ -44,12 +92,8 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         ((Main2Activity)getContext()).playSpotify(uri);
     }
 
-    public void pause(){
-        ((Main2Activity)getContext()).pauseSpotify();
-    }
-
-    public void resume(){
-        ((Main2Activity)getContext()).resumePlayer();
+    public void pauseOrResumeSpotify(){
+        ((Main2Activity)getContext()).pauseOrResumeSpotify();
     }
 
     public void skipToPrevious(){

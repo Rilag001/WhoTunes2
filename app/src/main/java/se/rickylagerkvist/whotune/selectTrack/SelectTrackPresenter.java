@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import se.rickylagerkvist.whotune.client.HttpUtils;
+import se.rickylagerkvist.whotune.client.SpotifyClient;
 import se.rickylagerkvist.whotune.data.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.SpotifyData.TrackList;
 
@@ -32,9 +32,9 @@ public class SelectTrackPresenter {
 
         if(!view.searchEditText().isEmpty()){
 
-            String newSearchText = HttpUtils.SEARCH_TRACK_URL.replace("{search}", searchText.replace(" ", "+"));
+            String newSearchText = SpotifyClient.SEARCH_TRACK_URL.replace("{search}", searchText.replace(" ", "+"));
 
-            HttpUtils.get(newSearchText, null, new JsonHttpResponseHandler(){
+            SpotifyClient.get(newSearchText, null, new JsonHttpResponseHandler(){
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

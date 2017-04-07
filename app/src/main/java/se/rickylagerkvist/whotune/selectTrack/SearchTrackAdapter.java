@@ -78,7 +78,7 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         holder.trackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view.setPlayUI(track);
+                view.setSelectedTrackUI(track);
             }
         });
     }
@@ -95,6 +95,6 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
     }
 
     interface SearchTrackAdapterInterFace{
-        void setPlayUI(Track track);
+        void setSelectedTrackUI(Track track);
     }
 }

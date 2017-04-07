@@ -21,15 +21,13 @@ import se.rickylagerkvist.whotune.gamesList.GamesFragment;
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.login.FirebaseLogInActivity;
+import se.rickylagerkvist.whotune.utils.DialogHelpers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MenuFragment extends Fragment implements MenuPresenter.View {
 
-    private Button btnCreateGame, btnJoinGame, btnLogOut;
-    private DatabaseReference gamesRef;
-    ImageView mInfoImage;
     MenuPresenter presenter;
 
     public MenuFragment() {
@@ -49,14 +47,12 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        btnCreateGame = (Button) rootView.findViewById(R.id.btn_create_game);
-        btnJoinGame = (Button) rootView.findViewById(R.id.btn_join_game);
-        btnLogOut = (Button) rootView.findViewById(R.id.btn_logout);
-        mInfoImage = (ImageView) rootView.findViewById(R.id.iv_infoImage);
+        Button btnCreateGame = (Button) rootView.findViewById(R.id.btn_create_game);
+        Button btnJoinGame = (Button) rootView.findViewById(R.id.btn_join_game);
+        Button btnLogOut = (Button) rootView.findViewById(R.id.btn_logout);
+        ImageView mInfoImage = (ImageView) rootView.findViewById(R.id.iv_infoImage);
 
         presenter = new MenuPresenter(this);
-
-        gamesRef = FirebaseDatabase.getInstance().getReference("games");
 
         // create game
         btnCreateGame.setOnClickListener(new View.OnClickListener() {
@@ -80,16 +76,7 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
         mInfoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Ho-hooo... How to play")
-                        .setMessage("A minimum of 3 players each pick a song. The songs will be played in random order. The players then guess who picked what song. \n\nEasy enough right? Lets play to some sweet tunes!")
-                        .setCancelable(false)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        }).show();
+                DialogHelpers.infoDialog(getContext());
             }
         });
 

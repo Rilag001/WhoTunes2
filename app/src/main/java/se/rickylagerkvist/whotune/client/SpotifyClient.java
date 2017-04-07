@@ -8,7 +8,7 @@ import com.loopj.android.http.RequestParams;
  * Created by Ricky on 2016-11-18.
  */
 
-public class HttpUtils{
+public class SpotifyClient {
 
     private static final String BASE_URL = "https://api.spotify.com/v1";
     public static final String SEARCH_TRACK_URL = "/search?q={search}&type=track&limit=20";

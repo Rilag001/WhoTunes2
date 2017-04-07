@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Who Tunes</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name_user_nr">Name user nr %1$s</string>
     <string name="search_for_song">Search for song</string>
@@ -21,8 +20,13 @@
     <string name="games">Games</string>
     <string name="cancel">Cancel</string>
     <string name="add_game">Add game</string>
-    <string name="game_created_by">Created by %1$s</string>
+    <string name="game_created_by">Admin %1$s</string>
     <string name="start_game">Start game</string>
     <string name="only_admin_can_start_game">Only admin can start game</string>
     <string name="log_out">Log out</string>
+    <string name="play_tracks">Play tracks</string>
+    <string name="login_failed">Login failed</string>
+    <string name="info_dialog_title">Ho-hooo… How to play</string>
+    <string name="info_dialog_message">A minimum of 3 players each pick a song. The songs will be played in random order. The players then guess who picked what song. Easy enough right? Lets play to some sweet tunes!</string>
+    <string name="info_dialog_positive_btn">Got it!</string>
 </resources>

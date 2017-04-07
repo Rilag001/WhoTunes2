@@ -28,7 +28,6 @@ import se.rickylagerkvist.whotune.utils.Utils;
 public class Main2Activity extends AppCompatActivity implements
         PlayerNotificationCallback, ConnectionStateCallback, MainActivityPresenter.View {
 
-    // Member variables for Spotify
     private static final String CLIENT_ID = "d2765d66afd94102adb14e41de533df0";
     private static final String REDIRECT_URI = "the-music-game-login://callback";
     // Request code that will be used to verify if the result comes from correct activity
@@ -36,8 +35,8 @@ public class Main2Activity extends AppCompatActivity implements
     private static final int REQUEST_CODE = 1225;
     private Player spotifyPlayer;
     private static String SPOTIFY_PACKAGE_NAME = "com.spotify.music";
-    // end region
     private MainActivityPresenter presenter;
+    private Boolean isPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +116,13 @@ public class Main2Activity extends AppCompatActivity implements
                         spotifyPlayer.addConnectionStateCallback(Main2Activity.this);
                         spotifyPlayer.addPlayerNotificationCallback(Main2Activity.this);
 
-                        spotifyPlayer.play("spotify:track:5Txh2MkHuP3wmJ7aG3TUXu");
-                        Toast.makeText(Main2Activity.this, "play", Toast.LENGTH_SHORT).show();
+//                        spotifyPlayer.play("spotify:track:5Txh2MkHuP3wmJ7aG3TUXu");
+//                        Toast.makeText(Main2Activity.this, "play", Toast.LENGTH_SHORT).show();
 
                         spotifyPlayer.addPlayerNotificationCallback(new PlayerNotificationCallback() {
                             @Override
                             public void onPlaybackEvent(EventType eventType, PlayerState playerState) {
-
+                                isPlaying = playerState.playing;
                             }
 
                             @Override
@@ -147,12 +146,12 @@ public class Main2Activity extends AppCompatActivity implements
         spotifyPlayer.play(uri);
     }
 
-    public void pauseSpotify(){
-        spotifyPlayer.pause();
-    }
-
-    public void resumePlayer(){
-        spotifyPlayer.resume();
+    public void pauseOrResumeSpotify(){
+        if(isPlaying){
+            spotifyPlayer.pause();
+        } else {
+            spotifyPlayer.resume();
+        }
     }
 
     public void muteSoundPlayer(){

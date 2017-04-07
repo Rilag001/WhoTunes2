@@ -3,23 +3,22 @@ package se.rickylagerkvist.whotune.gamesList;
 import android.app.Activity;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.client.FireBaseRef;
 import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.data.Player;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 import se.rickylagerkvist.whotune.utils.Utils;
 
 /**
@@ -54,15 +53,17 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
                     String gameId = GamesCardAdapter.this.getRef(position).getKey();
 
                     // create player and save in this game
-                    String photoUrl = PreferenceManager.getDefaultSharedPreferences(v.getContext()).getString("PHOTO_URL", "");
-                    String displayName = PreferenceManager.getDefaultSharedPreferences(v.getContext()).getString("DISPLAY_NAME", "");
-                    String userUid = PreferenceManager.getDefaultSharedPreferences(v.getContext()).getString("USERUID","");
+                    String photoUrl = SharedPrefUtils.getPhotoUrl(v.getContext());
+                    String displayName = SharedPrefUtils.getDisplayName(v.getContext());
+                    String userUid = SharedPrefUtils.getUid(v.getContext());
 
+                    // TODO check that you are not added as a player, before adding
                     // add player to list
                     Player player = new Player(displayName, photoUrl, userUid);
-                    DatabaseReference playersRef = FirebaseDatabase.getInstance().getReference("games").child(gameId).child("players");
-                    String key = playersRef.push().getKey();
-                    playersRef.child(userUid).setValue(player);
+                    model.addPlayerToPlayers(player);
+
+                    // save to Firebase
+                    FireBaseRef.game(gameId).setValue(model);
 
                     // save key, bundle to PlayersInGameFragment
                     Bundle bundle = new Bundle();

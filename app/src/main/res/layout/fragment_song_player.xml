@@ -1,13 +1,122 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="se.rickylagerkvist.whotune.playSongs.SongPlayerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/iv_player_coverart"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ow3"
+        android:scaleType="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-</FrameLayout>
+    <TextView
+        android:text="Song track name"
+        android:id="@+id/tv_player_trackname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_player_coverart"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:text="this artist name"
+        android:id="@+id/tv_player_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_trackname"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressbar_player_track"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_artist"
+        app:layout_constraintBottom_toTopOf="@+id/iv_player_play_pause"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp" />
+
+    <TextView
+        android:text="1:25"
+        android:textColor="@color/white"
+        android:id="@+id/tv_track_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toStartOf="@id/progressbar_player_track"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_artist"
+        app:layout_constraintBottom_toTopOf="@+id/iv_player_play_pause"/>
+
+    <TextView
+        android:text="3:14"
+        android:textColor="@color/white"
+        android:id="@+id/tv_track_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toEndOf="@id/progressbar_player_track"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_artist"
+        app:layout_constraintBottom_toTopOf="@+id/iv_player_play_pause"/>
+
+    <ImageView
+        android:id="@+id/iv_player_play_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_arrow_white_48dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_player_track"/>
+
+    <ImageView
+        android:id="@+id/iv_player_skip_next"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_skip_next_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_player_track"
+        app:layout_constraintStart_toEndOf="@id/iv_player_play_pause" />
+
+    <ImageView
+        android:id="@+id/iv_player_skip_previous"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_skip_previous_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar_player_track"
+        app:layout_constraintEnd_toStartOf="@id/iv_player_play_pause" />
+
+</android.support.constraint.ConstraintLayout>

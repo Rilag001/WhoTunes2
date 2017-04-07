@@ -1,7 +1,6 @@
 package se.rickylagerkvist.whotune.login;
 
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,12 +24,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.client.FireBaseRef;
 import se.rickylagerkvist.whotune.data.Profile;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginPresenter.View {
 
@@ -41,7 +40,6 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference myProfileRef;
     private LoginPresenter presenter;
     // end region
 
@@ -120,7 +118,7 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
-                // ...
+                Toast.makeText(this, R.string.login_failed, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -128,7 +126,6 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        //AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -141,17 +138,16 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
                         String uid = mAuth.getCurrentUser().getUid();
 
                         // save profile to database
-                        myProfileRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
                         Profile myProfile = new Profile(displayName, photoURL, "");
-                        myProfileRef.setValue(myProfile);
+                        FireBaseRef.users.child(uid).setValue(myProfile);
 
                         // save mUserUid to sharedPref
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USERUID", uid).apply();
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("DISPLAY_NAME", displayName).apply();
+                        SharedPrefUtils.saveUid(uid, getApplicationContext());
+                        SharedPrefUtils.saveDisplayName(displayName, getApplicationContext());
                         if (!TextUtils.isEmpty(photoURL)){
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("PHOTO_URL", photoURL).apply();
+                            SharedPrefUtils.savePhotoUrl(photoURL, getApplicationContext());
                         } else {
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("PHOTO_URL", "defaultStringIfNothingFound").apply();
+                            SharedPrefUtils.savePhotoUrl("defaultStringIfNothingFound", getApplicationContext());
                         }
 
                         // start MainActivity

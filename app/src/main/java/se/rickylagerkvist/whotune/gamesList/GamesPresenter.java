@@ -14,7 +14,7 @@ public class GamesPresenter {
         this.view = view;
     }
 
-    public  interface View {
+    public interface View {
 
     }
 }
