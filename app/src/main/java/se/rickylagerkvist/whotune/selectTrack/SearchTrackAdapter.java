@@ -16,8 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.client.FireBaseRef;
 import se.rickylagerkvist.whotune.data.SpotifyData.Track;
+import se.rickylagerkvist.whotune.gamesList.GamesCardAdapter;
 import se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
  * Created by rickylagerkvist on 2017-04-05.
@@ -75,10 +78,13 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         // CoverArt
         Glide.with(holder.coverArt.getContext()).load(track.getSmallCoverArt()).into(holder.coverArt);
 
+        // set track as selected, Update Ui in fragment, save track to Fire db
         holder.trackLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 view.setSelectedTrackUI(track);
+
+                FireBaseRef.gamePlayers(SharedPrefUtils.getGameId(v.getContext())).child(SharedPrefUtils.getUid(v.getContext())).child("selectedTrack").setValue(track);
             }
         });
     }

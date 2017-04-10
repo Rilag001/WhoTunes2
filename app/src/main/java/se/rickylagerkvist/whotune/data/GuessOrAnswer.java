@@ -1,34 +1,32 @@
 package se.rickylagerkvist.whotune.data;
 
-import se.rickylagerkvist.whotune.data.SpotifyData.Track;
-
 /**
  * Created by Ricky on 2016-12-04.
  */
 
 public class GuessOrAnswer {
 
-    private String UserName;
-    private Track SelectedTrack;
+    private String userUid;
+    private String trackUri;
 
-    public GuessOrAnswer(String userName, Track selectedTrack){
-        UserName = userName;
-        SelectedTrack = selectedTrack;
+    public GuessOrAnswer(String userUid, String trackUri) {
+        this.userUid = userUid;
+        this.trackUri = trackUri;
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getUserUid() {
+        return userUid;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
     }
 
-    public Track getSelectedTrack() {
-        return SelectedTrack;
+    public String getTrackUri() {
+        return trackUri;
     }
 
-    public void setSelectedTrack(Track selectedTrack) {
-        SelectedTrack = selectedTrack;
+    public void setTrackUri(String trackUri) {
+        this.trackUri = trackUri;
     }
 }

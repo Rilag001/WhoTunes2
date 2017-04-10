@@ -22,6 +22,11 @@ public class SharedPrefUtils {
         return PreferenceManager.getDefaultSharedPreferences(context).getString("USERUID", "");
     }
 
+    public static String getGameId(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("GAME_ID", "");
+    }
+
+
     // set
     public static void saveUid(String uid, Context context){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("USERUID", uid).apply();
@@ -33,5 +38,9 @@ public class SharedPrefUtils {
 
     public static void savePhotoUrl(String photoUrl, Context context){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("PHOTO_URL", photoUrl).apply();
+    }
+
+    public static void saveGameId(String gameId, Context context){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("GAME_ID", gameId).apply();
     }
 }

@@ -1,7 +1,9 @@
 package se.rickylagerkvist.whotune.playSongs;
 
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.client.FireBaseRef;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +30,7 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
     private ImageView playPause, nextTrack, previousTrack;
     private ProgressBar trackProgressBar;
     private ArrayList<String> tracksUri = new ArrayList<>();
+    private ConstraintLayout constraintLayout;
 
 
     public SongPlayerFragment() {
@@ -48,6 +53,8 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
 
         presenter = new SongPlayerPresenter(this);
 
+        constraintLayout = (ConstraintLayout) rootView.findViewById(R.id.cl_player);
+
         // progressbar
         trackProgressBar = (ProgressBar) rootView.findViewById(R.id.progressbar_player_track);
         trackProgressBar.setVisibility(ProgressBar.VISIBLE);
@@ -64,24 +71,33 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         nextTrack = (ImageView) rootView.findViewById(R.id.iv_player_skip_next);
         previousTrack = (ImageView) rootView.findViewById(R.id.iv_player_skip_previous);
 
+        // animate background
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+
+        animationDrawable.start();
+
+        // player click actions
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO play/pause
             }
         });
 
         nextTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO next track
             }
         });
 
         previousTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO previous track
             }
         });
 

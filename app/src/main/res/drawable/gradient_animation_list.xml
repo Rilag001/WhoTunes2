@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/gradient_bliz"
+        android:duration="5000"/>
+
+    <item
+        android:drawable="@drawable/gradient_deep_space"
+        android:duration="5000"/>
+
+    <item
+        android:drawable="@drawable/gradient_five"
+        android:duration="5000"/>
+
+    <item
+        android:drawable="@drawable/gradient_midnight"
+        android:duration="5000"/>
+
+    <item
+        android:drawable="@drawable/gradient_mirage"
+        android:duration="5000"/>
+
+</animation-list>

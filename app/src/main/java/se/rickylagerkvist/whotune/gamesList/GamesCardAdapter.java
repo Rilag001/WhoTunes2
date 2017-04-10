@@ -51,6 +51,7 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
                 @Override
                 public void onClick(View v) {
                     String gameId = GamesCardAdapter.this.getRef(position).getKey();
+                    SharedPrefUtils.saveGameId(gameId, v.getContext());
 
                     // create player and save in this game
                     String photoUrl = SharedPrefUtils.getPhotoUrl(v.getContext());
@@ -60,7 +61,9 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
                     // TODO check that you are not added as a player, before adding
                     // add player to list
                     Player player = new Player(displayName, photoUrl, userUid);
-                    model.addPlayerToPlayers(player);
+                    //model.addPlayerToPlayers(player);
+
+                    model.getPlayers().put(SharedPrefUtils.getUid(v.getContext()), player);
 
                     // save to Firebase
                     FireBaseRef.game(gameId).setValue(model);

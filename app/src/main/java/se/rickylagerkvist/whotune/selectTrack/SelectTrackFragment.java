@@ -135,7 +135,6 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
                 if(selectedTrack != null){
                     Bundle bundle = new Bundle();
                     ((Main2Activity) v.getContext()).changeFragment(PlayersHasSelectedTrackFragment.newInstance(), true, bundle);
-                    // TODO save track to db
                 }
             }
         });

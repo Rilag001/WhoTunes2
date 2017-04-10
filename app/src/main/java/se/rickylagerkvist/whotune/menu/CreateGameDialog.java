@@ -16,11 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import se.rickylagerkvist.whotune.client.FireBaseRef;
 import se.rickylagerkvist.whotune.data.Admin;
 import se.rickylagerkvist.whotune.data.GameState;
 import se.rickylagerkvist.whotune.MainActivity.Main2Activity;
+import se.rickylagerkvist.whotune.data.GuessOrAnswer;
 import se.rickylagerkvist.whotune.data.Player;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.WhoTuneGame;
@@ -93,13 +95,14 @@ public class CreateGameDialog extends DialogFragment {
             String userUid = SharedPrefUtils.getUid(getActivity());
             Admin admin = new Admin(photoUrl, displayName, userUid);
 
-            ArrayList<Player> players = new ArrayList<>();
+            HashMap<String, Player> players = new HashMap<>();
 
-            ArrayList<String> playList = new ArrayList<>();
-            players.add(new Player(displayName, photoUrl, userUid));
+            ArrayList<GuessOrAnswer> playList = new ArrayList<>();
+            players.put(userUid, new Player(displayName, photoUrl, userUid));
 
             // save game to db
             String key = FireBaseRef.games.push().getKey();
+            SharedPrefUtils.saveGameId(key, getActivity());
             FireBaseRef.games.child(key).setValue(new WhoTuneGame(
                     name,
                     admin,
