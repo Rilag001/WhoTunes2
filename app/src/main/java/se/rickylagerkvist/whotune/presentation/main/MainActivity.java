@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         presenter = new MainActivityPresenter(this);
 
         // init MenuFragment
-        changeFragment(MenuFragment.newInstance(), false, null);
+        changeFragment(MenuFragment.newInstance(), false);
 
         // check is spotify is installed
         boolean isSpotifyInstalled = Utils.isPackageInstalled(SPOTIFY_PACKAGE_NAME, this.getPackageManager());
@@ -116,23 +116,6 @@ public class MainActivity extends AppCompatActivity implements
                         spotifyPlayer = player;
                         spotifyPlayer.addConnectionStateCallback(MainActivity.this);
                         spotifyPlayer.addPlayerNotificationCallback(MainActivity.this);
-
-                        spotifyPlayer.addPlayerNotificationCallback(new PlayerNotificationCallback() {
-                            @Override
-                            public void onPlaybackEvent(EventType eventType, PlayerState playerState) {
-                                isPlaying = playerState.playing;
-
-                                if(eventType.equals(EventType.END_OF_CONTEXT)){
-                                    //changeFragment(ResultsFragment.newInstance(), false);
-                                }
-                            }
-
-                            @Override
-                            public void onPlaybackError(ErrorType errorType, String errorDetails) {
-                                // Handle errors
-                            }
-                        });
-
                     }
 
                     @Override
@@ -142,26 +125,6 @@ public class MainActivity extends AppCompatActivity implements
                 });
             }
         }
-    }
-
-    public void playSpotify(List<String> uri){
-        spotifyPlayer.play(uri);
-    }
-
-    public void pauseOrResumeSpotify(){
-        if(isPlaying){
-            spotifyPlayer.pause();
-        } else {
-            spotifyPlayer.resume();
-        }
-    }
-
-    public void skipToNext(){
-        spotifyPlayer.skipToNext();
-    }
-
-    public void skipToPrevious(){
-        spotifyPlayer.skipToPrevious();
     }
 
     @Override
@@ -205,5 +168,12 @@ public class MainActivity extends AppCompatActivity implements
         Spotify.destroyPlayer(this);
         super.onDestroy();
     }
+
+    // get Spotify player
+    public Player getPlayer(){
+        return spotifyPlayer;
+    }
+
+
 
 }

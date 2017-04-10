@@ -114,7 +114,7 @@ public class CreateGameDialog extends DialogFragment {
             bundle.putString("GAME_ID", key);
 
             CreateGameDialog.this.getDialog().cancel();
-            ((MainActivity) getActivity()).changeFragment(PlayersInGameFragment.newInstance(), false, bundle);
+            ((MainActivity) getActivity()).changeFragment(PlayersInGameFragment.newInstance(), false);
 
         } else {
             Toast.makeText(getActivity(), "Enter a name", Toast.LENGTH_SHORT).show();

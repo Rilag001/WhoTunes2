@@ -54,7 +54,7 @@ public class PlayersHasSelectedTrackFragment extends Fragment implements Players
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                ((MainActivity)v.getContext()).changeFragment(SongPlayerFragment.newInstance(), false, bundle);
+                ((MainActivity)v.getContext()).changeFragment(SongPlayerFragment.newInstance(), false);
             }
         });
 

@@ -84,7 +84,7 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
             public void onClick(View v) {
                 if(isAdmin){
                     gameRef.child("gameState").setValue(GameState.SELECTING_TRACK);
-                    ((MainActivity)v.getContext()).changeFragment(SelectTrackFragment.newInstance(),false, null);
+                    ((MainActivity)v.getContext()).changeFragment(SelectTrackFragment.newInstance(),false);
                 } else {
                     Toast.makeText(getContext(), R.string.only_admin_can_start_game, Toast.LENGTH_SHORT).show();
                 }
@@ -129,7 +129,7 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GameState state = dataSnapshot.getValue(GameState.class);
                 if(state == GameState.SELECTING_TRACK){
-                    ((MainActivity)getActivity()).changeFragment(SelectTrackFragment.newInstance(),false, null);
+                    ((MainActivity)getActivity()).changeFragment(SelectTrackFragment.newInstance(),false);
                 }
             }
 

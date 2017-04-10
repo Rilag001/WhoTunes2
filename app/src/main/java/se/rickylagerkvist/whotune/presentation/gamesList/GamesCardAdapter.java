@@ -69,7 +69,7 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
                     Bundle bundle = new Bundle();
                     bundle.putString("GAME_ID", gameId);
 
-                    ((MainActivity) v.getContext()).changeFragment(PlayersInGameFragment.newInstance(), true, bundle);
+                    ((MainActivity) v.getContext()).changeFragment(PlayersInGameFragment.newInstance(), true);
                 }
             });
 

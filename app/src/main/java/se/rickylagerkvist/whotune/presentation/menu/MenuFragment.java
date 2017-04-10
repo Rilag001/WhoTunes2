@@ -64,7 +64,7 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
         btnJoinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getContext()).changeFragment(GamesFragment.newInstance(), true, null);
+                ((MainActivity) getContext()).changeFragment(GamesFragment.newInstance(), true);
             }
         });
 
