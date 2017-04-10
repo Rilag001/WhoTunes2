@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_animation_list"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="se.rickylagerkvist.whotune.playSongs.SongPlayerFragment">
+    tools:context=".presentation.playSongs.SongPlayerFragment">
 
     <ImageView
         android:id="@+id/iv_player_coverart"

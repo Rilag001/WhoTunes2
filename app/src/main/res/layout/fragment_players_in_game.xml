@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context="se.rickylagerkvist.whotune.playersInGame.PlayersInGameFragment">
+    tools:context=".presentation.playersInGame.PlayersInGameFragment">
 
     <LinearLayout
         android:id="@+id/fragment_players_in_game_heading"

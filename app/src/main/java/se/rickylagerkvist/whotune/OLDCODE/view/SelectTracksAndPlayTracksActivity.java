@@ -1,57 +1,6 @@
 package se.rickylagerkvist.whotune.OLDCODE.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationRequest;
-import com.spotify.sdk.android.authentication.AuthenticationResponse;
-import com.spotify.sdk.android.player.Config;
-import com.spotify.sdk.android.player.ConnectionStateCallback;
-import com.spotify.sdk.android.player.Player;
-import com.spotify.sdk.android.player.PlayerNotificationCallback;
-import com.spotify.sdk.android.player.PlayerState;
-import com.spotify.sdk.android.player.Spotify;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
-import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.SpotifyData.TrackList;
-import se.rickylagerkvist.whotune.data.SpotifyData.Track;
-import se.rickylagerkvist.whotune.client.SpotifyClient;
-
-import static se.rickylagerkvist.whotune.R.id.searchEditText;
 
 public class SelectTracksAndPlayTracksActivity extends Activity {
 //    // spotify

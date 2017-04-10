@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:id="@+id/rl_select_track"
-    tools:context="se.rickylagerkvist.whotune.selectTrack.SelectTrackFragment">
+    tools:context=".presentation.selectTrack.SelectTrackFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    tools:context="se.rickylagerkvist.whotune.playersHasSelectedTrack.PlayersHasSelectedTrackFragment">
+    tools:context=".presentation.playersHasSelectedTrack.PlayersHasSelectedTrackFragment">
 
     <ListView
         android:id="@+id/lv_players_that_has_selected_track"
