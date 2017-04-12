@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
 import se.rickylagerkvist.whotune.presentation.main.MainActivity;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 import se.rickylagerkvist.whotune.utils.Utils;
 
@@ -48,6 +50,7 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
     private ConstraintLayout constraintLayout;
     private WhoTuneGame game;
     private boolean isPlaying;
+    private Handler spotifyProgressHandler;
 
     private com.spotify.sdk.android.player.Player spotifyPlayer;
 
@@ -122,23 +125,22 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
 
                 isPlaying = playerState.playing;
 
-//                TODO view results on track end
-//                if(eventType.equals(EventType.END_OF_CONTEXT)){
-//                    ((MainActivity)getContext()).changeFragment(ResultsFragment.newInstance(), false);
-//                }
+                //TODO view results on track end
+                if(eventType.equals(EventType.END_OF_CONTEXT)){
+                    ((MainActivity)getContext()).changeFragment(ResultsFragment.newInstance(), false);
+                } else {
 
-                // update track UI
-                for (Player player : game.getPlayers().values()) {
-                    if(player.getSelectedTrack().getUri().equals(playerState.trackUri)){
-                        upDateTrackUI(player.getSelectedTrack());
+                    try{
+                        // update track UI
+                        for (Player player : game.getPlayers().values()) {
+                            if(player.getSelectedTrack().getUri().equals(playerState.trackUri)){
+                                updateTrackUI(player.getSelectedTrack(), playerState.durationInMs);
+                            }
+                        }
+                    } catch (Exception e){
+                        Log.e("SongPlayerFragment", e.toString());
                     }
                 }
-
-                // track progress
-                trackProgress.setText(Utils.convertMsToMinSecString(playerState.positionInMs));
-                seekBar.setProgress(playerState.positionInMs);
-                seekBar.setMax(playerState.durationInMs);
-                trackLength.setText(Utils.convertMsToMinSecString(playerState.durationInMs));
             }
 
             @Override
@@ -147,14 +149,14 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
             }
         });
 
-        //  TODO update track progress auto
-
-        // change track progress
+        // user action - change track progress
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                spotifyPlayer.seekToPosition(progress);
-                trackProgress.setText(Utils.convertMsToMinSecString(progress));
+                if(fromUser){
+                    spotifyPlayer.seekToPosition(progress);
+                    trackProgress.setText(Utils.convertMsToMinSecString(progress));
+                }
             }
 
             @Override
@@ -167,6 +169,11 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
 
             }
         });
+
+
+        // task to UI update track progress
+        spotifyProgressHandler = new Handler();
+        startTrackProgressTask();
 
         // player click actions
         playPause.setOnClickListener(new View.OnClickListener() {
@@ -199,13 +206,47 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         return rootView;
     }
 
-    public void upDateTrackUI(Track track){
+    public void updateTrackUI(Track track, int durationInMs){
 
         track.getAlbum().getImages().get(0);
 
         Glide.with(getActivity()).load(track.getBigCoverArt()).into(coverArt);
         trackName.setText(track.getName());
         artist.setText(track.getAllArtistAsJoinedString());
+
+        seekBar.setMax(durationInMs);
+        trackLength.setText(Utils.convertMsToMinSecString(durationInMs));
     }
 
+    // update track UI
+    Runnable trackProg = new Runnable() {
+        @Override
+        public void run() {
+            try{
+                spotifyPlayer.getPlayerState(new PlayerStateCallback() {
+                    @Override
+                    public void onPlayerState(PlayerState playerState) {
+                        trackProgress.setText(Utils.convertMsToMinSecString(playerState.positionInMs));
+                        seekBar.setProgress(playerState.positionInMs);
+                    }
+                });
+            } finally {
+                spotifyProgressHandler.postDelayed(trackProg, 1000);
+            }
+        }
+    };
+
+    void startTrackProgressTask(){
+        trackProg.run();
+    }
+
+    void stopTrackProgressTask(){
+        spotifyProgressHandler.removeCallbacks(trackProg);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopTrackProgressTask();
+    }
 }

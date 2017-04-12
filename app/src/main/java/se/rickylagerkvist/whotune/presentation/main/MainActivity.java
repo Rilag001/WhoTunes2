@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -21,9 +23,17 @@ import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.data.database.SpotifyClient;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.TrackList;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
 import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
 import se.rickylagerkvist.whotune.utils.Utils;
@@ -39,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements
     private Player spotifyPlayer;
     private static String SPOTIFY_PACKAGE_NAME = "com.spotify.music";
     private MainActivityPresenter presenter;
-    private Boolean isPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+
+                SpotifyClient.AUTH_TOKEN = response.getAccessToken();
 
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
                 Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {

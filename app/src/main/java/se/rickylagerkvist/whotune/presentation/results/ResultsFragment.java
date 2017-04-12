@@ -20,7 +20,7 @@ public class ResultsFragment extends Fragment implements ResultsPresenter.View {
         // Required empty public constructor
     }
 
-    public ResultsFragment newInstance(){
+    public static ResultsFragment newInstance(){
         ResultsFragment fragment = new ResultsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
