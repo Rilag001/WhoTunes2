@@ -13,15 +13,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
+import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GamesFragment extends Fragment implements GamesPresenter.View {
+public class GamesFragment extends Fragment {
 
     ImageView ivExit;
-    private GamesPresenter presenter;
 
     public GamesFragment() {
         // Required empty public constructor
@@ -41,11 +40,9 @@ public class GamesFragment extends Fragment implements GamesPresenter.View {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_games, container, false);
 
-        presenter = new GamesPresenter(this);
-
-        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("games");
+        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("rounds");
         ListView list = (ListView) rootView.findViewById(R.id.lw_games);
-        final GamesCardAdapter gamesCardAdapter = new GamesCardAdapter(getActivity(), WhoTuneGame.class, R.layout.games_list_layout, gamesRef);
+        final GamesCardAdapter gamesCardAdapter = new GamesCardAdapter(getActivity(), WhoTuneRound.class, R.layout.games_card, gamesRef);
         list.setAdapter(gamesCardAdapter);
 
         ivExit = (ImageView) rootView.findViewById(R.id.iv_close_games_fragment);

@@ -8,33 +8,24 @@ import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
  * Created by Ricky on 2016-11-20.
  */
 
-public class Player {
+public class User {
 
     private String Name;
     private String profilePicUrl;
     private String Uri;
     private Track selectedTrack;
-    private ArrayList<GuessOrAnswer> GuessesList = new ArrayList<>();
-    private int PointsForRightAnswer;
 
-    public Player() {
+    public User() {
     }
 
-    public Player(String name, String profilePicUrl, String uri) {
+    public User(String name, String profilePicUrl, String uri) {
         Name = name;
         this.profilePicUrl = profilePicUrl;
         Uri = uri;
     }
 
-    public int getPointsForRightAnswer() {
-        return PointsForRightAnswer;
-    }
 
-    public void setPointsForRightAnswer(int pointsForRightAnswer) {
-        PointsForRightAnswer = pointsForRightAnswer;
-    }
-
-    public Player(String name) {
+    public User(String name) {
         Name = name;
     }
 
@@ -53,23 +44,6 @@ public class Player {
 
     public void setSelectedTrack(Track selectedTrack) {
         this.selectedTrack = selectedTrack;
-    }
-
-    public ArrayList<GuessOrAnswer> getGuessesList() {
-        return GuessesList;
-    }
-
-    public void setGuessesList(ArrayList<GuessOrAnswer> guessesList) {
-        GuessesList = guessesList;
-    }
-
-    // add/remove guess
-    public void addGuess(GuessOrAnswer newGuess){
-        GuessesList.add(newGuess);
-    }
-
-    public void removeGuess(GuessOrAnswer removeGuess){
-        GuessesList.remove(removeGuess);
     }
 
     public String getProfilePicUrl() {

@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.PlayerStateCallback;
@@ -27,33 +28,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.Player;
+import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
-import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
+import se.rickylagerkvist.whotune.utils.DialogHelpers;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
-import se.rickylagerkvist.whotune.utils.Utils;
+import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.View {
+public class SongPlayerFragment extends Fragment{
 
-    private SongPlayerPresenter presenter;
     private ImageView coverArt;
     private TextView trackName, artist, trackProgress, trackLength;
     private ImageView playPause, nextTrack, previousTrack;
     private SeekBar seekBar;
     private ArrayList<String> tracksUri = new ArrayList<>();
     private ConstraintLayout constraintLayout;
-    private WhoTuneGame game;
-    private boolean isPlaying;
+    private WhoTuneRound round;
+    private boolean isSpotifyPlaying;
     private Handler spotifyProgressHandler;
-
-    private com.spotify.sdk.android.player.Player spotifyPlayer;
-
+    private String TAG = "SongPlayerFragment";
+    private Player spotifyPlayer;
 
     public SongPlayerFragment() {
         // Required empty public constructor
@@ -68,12 +68,10 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_song_player, container, false);
-
-        presenter = new SongPlayerPresenter(this);
 
         constraintLayout = (ConstraintLayout) rootView.findViewById(R.id.cl_player);
 
@@ -97,15 +95,46 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
 
-        // get game
-        FireBaseRef.game(SharedPrefUtils.getGameId(getActivity())).addListenerForSingleValueEvent(new ValueEventListener() {
+        // get SpotifyPlayer
+        spotifyPlayer = ((MainActivity)getContext()).getPlayer();
+        spotifyPlayer.addPlayerNotificationCallback(new PlayerNotificationCallback() {
+            @Override
+            public void onPlaybackEvent(EventType eventType, PlayerState playerState) {
+
+                isSpotifyPlaying = playerState.playing;
+
+                if(eventType.equals(EventType.END_OF_CONTEXT)){
+                    DialogHelpers.showNavToResultsDialog(getContext());
+                } else {
+
+                    try{
+                        // update track UI
+                        for (User player : round.getPlayers().values()) {
+                            if(player.getSelectedTrack().getUri().equals(playerState.trackUri)){
+                                updateTrackUI(player.getSelectedTrack(), playerState.durationInMs);
+                            }
+                        }
+                    } catch (Exception e){
+                        Log.e(TAG, e.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onPlaybackError(ErrorType errorType, String errorDetails) {
+                // Handle errors
+            }
+        });
+
+        // get round
+        FireBaseRef.round(SharedPrefUtils.getGameId(getActivity())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                game = dataSnapshot.getValue(WhoTuneGame.class);
+                round = dataSnapshot.getValue(WhoTuneRound.class);
 
                 // get tracks and play
-                for (Player player : game.getPlayers().values()) {
-                    tracksUri.add(player.getSelectedTrack().getUri());
+                for (User user : round.getPlayers().values()) {
+                    tracksUri.add(user.getSelectedTrack().getUri());
                     Collections.shuffle(tracksUri);
                 }
                 spotifyPlayer.play(tracksUri);
@@ -117,45 +146,13 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
             }
         });
 
-        // get SpotifyPlayer
-        spotifyPlayer = ((MainActivity)getContext()).getPlayer();
-        spotifyPlayer.addPlayerNotificationCallback(new PlayerNotificationCallback() {
-            @Override
-            public void onPlaybackEvent(EventType eventType, PlayerState playerState) {
-
-                isPlaying = playerState.playing;
-
-                //TODO view results on track end
-                if(eventType.equals(EventType.END_OF_CONTEXT)){
-                    ((MainActivity)getContext()).changeFragment(ResultsFragment.newInstance(), false);
-                } else {
-
-                    try{
-                        // update track UI
-                        for (Player player : game.getPlayers().values()) {
-                            if(player.getSelectedTrack().getUri().equals(playerState.trackUri)){
-                                updateTrackUI(player.getSelectedTrack(), playerState.durationInMs);
-                            }
-                        }
-                    } catch (Exception e){
-                        Log.e("SongPlayerFragment", e.toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onPlaybackError(ErrorType errorType, String errorDetails) {
-                // Handle errors
-            }
-        });
-
         // user action - change track progress
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser){
                     spotifyPlayer.seekToPosition(progress);
-                    trackProgress.setText(Utils.convertMsToMinSecString(progress));
+                    trackProgress.setText(ConvertAndFormatHelpers.convertMsToMinSecString(progress));
                 }
             }
 
@@ -179,7 +176,7 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isPlaying){
+                if(isSpotifyPlaying){
                     spotifyPlayer.pause();
                     playPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
                 } else {
@@ -192,7 +189,12 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         nextTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spotifyPlayer.skipToNext();
+                try{
+                    spotifyPlayer.skipToNext();
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
+
             }
         });
 
@@ -215,7 +217,7 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
         artist.setText(track.getAllArtistAsJoinedString());
 
         seekBar.setMax(durationInMs);
-        trackLength.setText(Utils.convertMsToMinSecString(durationInMs));
+        trackLength.setText(ConvertAndFormatHelpers.convertMsToMinSecString(durationInMs));
     }
 
     // update track UI
@@ -226,7 +228,7 @@ public class SongPlayerFragment extends Fragment implements SongPlayerPresenter.
                 spotifyPlayer.getPlayerState(new PlayerStateCallback() {
                     @Override
                     public void onPlayerState(PlayerState playerState) {
-                        trackProgress.setText(Utils.convertMsToMinSecString(playerState.positionInMs));
+                        trackProgress.setText(ConvertAndFormatHelpers.convertMsToMinSecString(playerState.positionInMs));
                         seekBar.setProgress(playerState.positionInMs);
                     }
                 });

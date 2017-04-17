@@ -25,13 +25,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.Profile;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
-public class FirebaseLogInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginPresenter.View {
+public class FirebaseLogInActivity extends AppCompatActivity
+        implements GoogleApiClient.OnConnectionFailedListener {
 
     // member variables
     SignInButton mSignInButton;
@@ -40,7 +41,6 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private LoginPresenter presenter;
     // end region
 
     @Override
@@ -48,8 +48,6 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_log_in);
-
-        presenter = new LoginPresenter(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -138,7 +136,7 @@ public class FirebaseLogInActivity extends AppCompatActivity implements GoogleAp
                         String uid = mAuth.getCurrentUser().getUid();
 
                         // save profile to database
-                        Profile myProfile = new Profile(displayName, photoURL, "");
+                        Profile myProfile = new Profile(displayName, photoURL);
                         FireBaseRef.users.child(uid).setValue(myProfile);
 
                         // save mUserUid to sharedPref

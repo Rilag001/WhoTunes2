@@ -8,15 +8,13 @@ public class Profile {
 
     private String name;
     private String photoUri;
-    private String points;
 
     public Profile() {
     }
 
-    public Profile(String name, String photoUri, String points) {
+    public Profile(String name, String photoUri) {
         this.name = name;
         this.photoUri = photoUri;
-        this.points = points;
     }
 
     public String getName() {
@@ -33,13 +31,5 @@ public class Profile {
 
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
-    }
-
-    public String getPoints() {
-        return points;
-    }
-
-    public void setPoints(String points) {
-        this.points = points;
     }
 }

@@ -1,18 +1,13 @@
-package se.rickylagerkvist.whotune.presentation.main;
+package se.rickylagerkvist.whotune;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -23,23 +18,13 @@ import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
-import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.SpotifyClient;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.TrackList;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
-import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
-import se.rickylagerkvist.whotune.utils.Utils;
+import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
+import se.rickylagerkvist.whotune.utils.DialogHelpers;
 
 public class MainActivity extends AppCompatActivity implements
-        PlayerNotificationCallback, ConnectionStateCallback, MainActivityPresenter.View {
+        PlayerNotificationCallback, ConnectionStateCallback {
 
     private static final String CLIENT_ID = "d2765d66afd94102adb14e41de533df0";
     private static final String REDIRECT_URI = "the-music-game-login://callback";
@@ -48,44 +33,24 @@ public class MainActivity extends AppCompatActivity implements
     private static final int REQUEST_CODE = 1225;
     private Player spotifyPlayer;
     private static String SPOTIFY_PACKAGE_NAME = "com.spotify.music";
-    private MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-
-        presenter = new MainActivityPresenter(this);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
 
         // init MenuFragment
         changeFragment(MenuFragment.newInstance(), false);
 
         // check is spotify is installed
-        boolean isSpotifyInstalled = Utils.isPackageInstalled(SPOTIFY_PACKAGE_NAME, this.getPackageManager());
+        boolean isSpotifyInstalled = ConvertAndFormatHelpers.isPackageInstalled(SPOTIFY_PACKAGE_NAME, this.getPackageManager());
         if(!isSpotifyInstalled){
-            new AlertDialog.Builder(getApplicationContext())
-                    .setTitle("")
-                    .setMessage("")
-                    .setPositiveButton("Install Spotify", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + SPOTIFY_PACKAGE_NAME)));
-                            } catch (android.content.ActivityNotFoundException anfe) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + SPOTIFY_PACKAGE_NAME)));
-                            }
-                        }
-                    })
-                    .setNegativeButton("Exit app", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.this.finish();
-                            System.exit(0);
-                        }
-                    })
-                    .show();
+            DialogHelpers.showSpotifyNotInstalledDialog(this);
         } else {
-            Toast.makeText(this, "Spotify installed", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Spotify installed");
         }
 
         // Authentication to Spotify
@@ -135,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 });
             }
+            // TODO error handle
         }
     }
 

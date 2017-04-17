@@ -15,22 +15,22 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.data.model.Admin;
 import se.rickylagerkvist.whotune.data.model.GameState;
-import se.rickylagerkvist.whotune.data.model.Player;
+import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.selectTrack.SelectTrackFragment;
+import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayersInGameFragment extends Fragment implements PlayersInGamePresenter.View {
+public class PlayersInGameFragment extends Fragment {
 
     // member variables
     private ListView listView;
@@ -39,7 +39,6 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
     private DatabaseReference gameRef, adminRef, playersRef;
     private ImageView ivExit;
     private boolean isAdmin;
-    private PlayersInGamePresenter presenter;
     // end region
 
     public PlayersInGameFragment() {
@@ -59,8 +58,6 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_players_in_game, container, false);
 
-        presenter = new PlayersInGamePresenter(this);
-
         listView = (ListView) rootView.findViewById(R.id.lv_players);
         ivExit = (ImageView) rootView.findViewById(R.id.iv_close_players_fragment);
         btnStartGame = (Button) rootView.findViewById(R.id.btn_start_game);
@@ -69,16 +66,16 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
         setUpListView();
         checkIfYouAreAdmin();
 
-        // Exit game
+        // Exit round
         ivExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO if admin remove game, else remove your player from game
+                // TODO if admin remove round, else remove your player from round
             }
         });
-        // TODO change to menu fragment if game is gone/admin exit
+        // TODO change to menu fragment if round is gone/admin exit
 
-        // Start game
+        // Start round
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,14 +114,14 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
 
     private void setUpFirebaseRefs() {
 
-        gameRef = FireBaseRef.game(SharedPrefUtils.getGameId(getActivity()));
+        gameRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity()));
 
         adminRef = gameRef.child("admin");
 
         playersRef = gameRef.child("players");
 
-        // if game state changes (ie admin has changed state, nav to SelectTrackFragment)
-        FireBaseRef.gameGameState(SharedPrefUtils.getGameId(getActivity())).addValueEventListener(new ValueEventListener() {
+        // if round state changes (ie admin has changed state, nav to SelectTrackFragment)
+        FireBaseRef.roundGameState(SharedPrefUtils.getGameId(getActivity())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GameState state = dataSnapshot.getValue(GameState.class);
@@ -144,9 +141,9 @@ public class PlayersInGameFragment extends Fragment implements PlayersInGamePres
 
         adapter = new PlayersCardAdapter(
                 getActivity(),
-                Player.class,
-                R.layout.player_list_layout,
-                playersRef);
+                User.class,
+                R.layout.player_card,
+                playersRef, false, false);
         listView.setAdapter(adapter);
     }
 

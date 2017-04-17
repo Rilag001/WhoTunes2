@@ -11,28 +11,28 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.Query;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.GameState;
-import se.rickylagerkvist.whotune.data.model.Player;
-import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
+import se.rickylagerkvist.whotune.data.model.User;
+import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 import se.rickylagerkvist.whotune.presentation.playersInGame.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
-import se.rickylagerkvist.whotune.utils.Utils;
+import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
 
 /**
  * Created by rickylagerkvist on 2017-04-04.
  */
 
-public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
+public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
 
-    public GamesCardAdapter(Activity activity, Class<WhoTuneGame> modelClass, int modelLayout, Query ref) {
+    public GamesCardAdapter(Activity activity, Class<WhoTuneRound> modelClass, int modelLayout, Query ref) {
         super(activity, modelClass, modelLayout, ref);
     }
 
     @Override
-    protected void populateView(View v, final WhoTuneGame model, final int position) {
+    protected void populateView(View v, final WhoTuneRound model, final int position) {
 
         TextView name = (TextView) v.findViewById(R.id.tv_name);
         CircleImageView profilePic = (CircleImageView) v.findViewById(R.id.circleIV);
@@ -45,7 +45,7 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
             Glide.with(v.getContext()).load(model.getAdmin().getCreatorProfilePicUrl()).into(profilePic);
             createdBy.setText(v.getResources().getString(R.string.game_created_by, model.getAdmin().getCreatorName()));
 
-            createdDate.setText(Utils.SIMPLE_DATE_FORMAT.format(model.getCreatedDate()));
+            createdDate.setText(ConvertAndFormatHelpers.SIMPLE_DATE_FORMAT.format(model.getCreatedDate()));
 
             join.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,17 +53,17 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneGame> {
                     String gameId = GamesCardAdapter.this.getRef(position).getKey();
                     SharedPrefUtils.saveGameId(gameId, v.getContext());
 
-                    // create player and save in this game
+                    // create player and save in this round
                     String photoUrl = SharedPrefUtils.getPhotoUrl(v.getContext());
                     String displayName = SharedPrefUtils.getDisplayName(v.getContext());
                     String userUid = SharedPrefUtils.getUid(v.getContext());
 
-                    Player player = new Player(displayName, photoUrl, userUid);
+                    User player = new User(displayName, photoUrl, userUid);
 
                     model.getPlayers().put(SharedPrefUtils.getUid(v.getContext()), player);
 
                     // save to FireBase
-                    FireBaseRef.game(gameId).setValue(model);
+                    FireBaseRef.round(gameId).setValue(model);
 
                     // save key, bundle to PlayersInGameFragment
                     Bundle bundle = new Bundle();

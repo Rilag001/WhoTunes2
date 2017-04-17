@@ -9,11 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -21,9 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.GuessOrAnswer;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
-import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
@@ -88,12 +81,12 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
             public void onClick(View v) {
                 view.setSelectedTrackUI(track);
 
-                // save track to game tracklist
-//                final GuessOrAnswer guessOrAnswer = new GuessOrAnswer(SharedPrefUtils.getUid(v.getContext()), track.getUri());
-//                FireBaseRef.game(SharedPrefUtils.getGameId(v.getContext())).child("playList").push().setValue(guessOrAnswer);
+                // save track to round tracklist
+//                final UsersTrack guessOrAnswer = new UsersTrack(SharedPrefUtils.getUid(v.getContext()), track.getUri());
+//                FireBaseRef.round(SharedPrefUtils.getGameId(v.getContext())).child("playList").push().setValue(guessOrAnswer);
 
                 // save track to player
-                FireBaseRef.gamePlayers(SharedPrefUtils.getGameId(v.getContext())).child(SharedPrefUtils.getUid(v.getContext())).child("selectedTrack").setValue(track);
+                FireBaseRef.roundUsers(SharedPrefUtils.getGameId(v.getContext())).child(SharedPrefUtils.getUid(v.getContext())).child("selectedTrack").setValue(track);
             }
         });
     }

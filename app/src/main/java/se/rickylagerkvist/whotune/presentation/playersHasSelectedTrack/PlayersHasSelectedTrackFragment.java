@@ -11,23 +11,24 @@ import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Image;
+import se.rickylagerkvist.whotune.data.database.FireBaseRef;
+import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.presentation.playSongs.SongPlayerFragment;
-import se.rickylagerkvist.whotune.presentation.playersInGame.PlayersCardAdapter;
+import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayersHasSelectedTrackFragment extends Fragment implements PlayersHasSelecterTrackPresenter.View {
+public class PlayersHasSelectedTrackFragment extends Fragment{
 
-    private PlayersHasSelecterTrackPresenter presenter;
     private PlayersCardAdapter adapter;
     private ListView listView;
     private Button btnPlayTracks;
-    private DatabaseReference gameRef;
-    private Image exitImage;
+    private DatabaseReference playersRef;
+    // private Image exitImage;
 
     public PlayersHasSelectedTrackFragment() {
         // Required empty public constructor
@@ -44,16 +45,18 @@ public class PlayersHasSelectedTrackFragment extends Fragment implements Players
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_playershas_selected_track, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_players_has_selected_track, container, false);
 
-        presenter = new PlayersHasSelecterTrackPresenter(this);
+        playersRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity())).child("players");
+
         listView = (ListView) rootView.findViewById(R.id.lv_players_that_has_selected_track);
+        adapter = new PlayersCardAdapter(getActivity(), User.class, R.layout.player_card, playersRef, true, false);
+        listView.setAdapter(adapter);
 
         btnPlayTracks = (Button) rootView.findViewById(R.id.btn_play_tracks);
         btnPlayTracks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
                 ((MainActivity)v.getContext()).changeFragment(SongPlayerFragment.newInstance(), false);
             }
         });

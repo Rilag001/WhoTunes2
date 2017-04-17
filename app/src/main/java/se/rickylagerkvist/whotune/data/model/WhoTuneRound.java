@@ -1,7 +1,6 @@
 package se.rickylagerkvist.whotune.data.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -9,19 +8,19 @@ import java.util.HashMap;
  * Created by rickylagerkvist on 2017-04-04.
  */
 
-public class WhoTuneGame {
+public class WhoTuneRound {
 
     private String name;
     private Admin admin;
     private Date createdDate;
-    private HashMap<String, Player> players;
-    private ArrayList<GuessOrAnswer> playList;
+    private HashMap<String, User> players;
+    private ArrayList<UsersTrack> playList;
     private GameState gameState;
 
-    public WhoTuneGame() {
+    public WhoTuneRound() {
     }
 
-    public WhoTuneGame(String name, Admin admin, Date createdDate, HashMap<String, Player> players, ArrayList<GuessOrAnswer> playList, GameState gameState) {
+    public WhoTuneRound(String name, Admin admin, Date createdDate, HashMap<String, User> players, ArrayList<UsersTrack> playList, GameState gameState) {
         this.name = name;
         this.admin = admin;
         this.createdDate = createdDate;
@@ -43,11 +42,11 @@ public class WhoTuneGame {
         return createdDate;
     }
 
-    public HashMap<String, Player> getPlayers() {
+    public HashMap<String, User> getPlayers() {
         return players;
     }
 
-    public ArrayList<GuessOrAnswer> getPlayList() {
+    public ArrayList<UsersTrack> getPlayList() {
         return playList;
     }
 
@@ -68,11 +67,11 @@ public class WhoTuneGame {
         this.createdDate = createdDate;
     }
 
-    public void setPlayers(HashMap<String, Player> players) {
+    public void setPlayers(HashMap<String, User> players) {
         this.players = players;
     }
 
-    public void setPlayList(ArrayList<GuessOrAnswer> playList) {
+    public void setPlayList(ArrayList<UsersTrack> playList) {
         this.playList = playList;
     }
 

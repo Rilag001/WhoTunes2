@@ -1,24 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    tools:context=".presentation.results.ResultsFragment">
+    tools:context=".presentation.playersHasSelectedTrack.PlayersHasSelectedTrackFragment">
 
     <ListView
-        android:id="@+id/lv_results"
+        android:id="@+id/lv_players_that_has_selected_track"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp">
     </ListView>
 
     <Button
-        android:id="@+id/btn_results_end_game"
-        android:text="@string/end_game"
+        android:id="@+id/btn_play_tracks"
+        android:text="@string/play_tracks"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp" />
 
 </RelativeLayout>

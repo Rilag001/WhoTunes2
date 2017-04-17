@@ -31,7 +31,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.presentation.playersHasSelectedTrack.PlayersHasSelectedTrackFragment;

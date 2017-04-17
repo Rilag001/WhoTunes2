@@ -8,5 +8,6 @@ public enum GameState {
     OPEN,
     SELECTING_TRACK,
     PLAYING,
+    SHOW_RESULTS,
     FINISHED
 }

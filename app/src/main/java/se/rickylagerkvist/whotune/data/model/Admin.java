@@ -8,7 +8,7 @@ public class Admin {
 
     private String creatorProfilePicUrl;
     private String creatorName;
-    private String Uid;
+    private String uid;
 
     public Admin() {
     }
@@ -16,7 +16,7 @@ public class Admin {
     public Admin(String creatorProfilePicUrl, String creatorName, String uid) {
         this.creatorProfilePicUrl = creatorProfilePicUrl;
         this.creatorName = creatorName;
-        Uid = uid;
+        this.uid = uid;
     }
 
     public String getCreatorProfilePicUrl() {
@@ -36,10 +36,10 @@ public class Admin {
     }
 
     public String getUid() {
-        return Uid;
+        return uid;
     }
 
     public void setUid(String uid) {
-        Uid = uid;
+        this.uid = uid;
     }
 }

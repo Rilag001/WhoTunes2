@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import se.rickylagerkvist.whotune.presentation.gamesList.GamesFragment;
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
+import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.login.FirebaseLogInActivity;
 import se.rickylagerkvist.whotune.utils.DialogHelpers;
@@ -22,9 +22,7 @@ import se.rickylagerkvist.whotune.utils.DialogHelpers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuFragment extends Fragment implements MenuPresenter.View {
-
-    MenuPresenter presenter;
+public class MenuFragment extends Fragment {
 
     public MenuFragment() {
         // Required empty public constructor
@@ -48,19 +46,16 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
         Button btnLogOut = (Button) rootView.findViewById(R.id.btn_logout);
         ImageView mInfoImage = (ImageView) rootView.findViewById(R.id.iv_infoImage);
 
-        presenter = new MenuPresenter(this);
-
-        // create game
+        // create round
         btnCreateGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DialogFragment dialog = CreateGameDialog.newInstance();
                 dialog.show(getActivity().getFragmentManager(), "CreateGameDialog");
             }
         });
 
-        // join game
+        // join round
         btnJoinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +67,7 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
         mInfoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelpers.infoDialog(getContext());
+                DialogHelpers.showInfoDialog(getContext());
             }
         });
 
@@ -85,7 +80,6 @@ public class MenuFragment extends Fragment implements MenuPresenter.View {
             }
         });
 
-        // TODO HighScore?
 
         return rootView;
     }

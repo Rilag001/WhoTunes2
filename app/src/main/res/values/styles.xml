@@ -10,6 +10,7 @@
 
     <style name="CustomTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

@@ -6,13 +6,14 @@
 
    <ImageView
        android:src="@drawable/ow3"
-       android:layout_width="match_parent"
+       android:layout_width="300dp"
        android:scaleType="centerCrop"
        android:layout_height="100dp" />
 
    <EditText
        android:id="@+id/et_create_game_name"
        android:hint="@string/name"
+       android:layout_margin="10dp"
        android:inputType="textCapSentences"
        android:layout_width="match_parent"
        android:layout_height="wrap_content" />

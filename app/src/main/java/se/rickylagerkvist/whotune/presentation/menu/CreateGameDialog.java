@@ -18,11 +18,11 @@ import java.util.HashMap;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.Admin;
 import se.rickylagerkvist.whotune.data.model.GameState;
-import se.rickylagerkvist.whotune.presentation.main.MainActivity;
-import se.rickylagerkvist.whotune.data.model.GuessOrAnswer;
-import se.rickylagerkvist.whotune.data.model.Player;
+import se.rickylagerkvist.whotune.MainActivity;
+import se.rickylagerkvist.whotune.data.model.User;
+import se.rickylagerkvist.whotune.data.model.UsersTrack;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.model.WhoTuneGame;
+import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 import se.rickylagerkvist.whotune.presentation.playersInGame.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
@@ -56,6 +56,7 @@ public class CreateGameDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        // TODO fix wrong text color
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -64,14 +65,13 @@ public class CreateGameDialog extends DialogFragment {
         editTextName = (EditText) rootView.findViewById(R.id.et_create_game_name);
 
         builder.setView(rootView)
-                .setTitle(R.string.create_game)
                 .setNegativeButton(getActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         CreateGameDialog.this.getDialog().cancel();
                     }
                 })
-                .setPositiveButton(getActivity().getString(R.string.add_game), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getActivity().getString(R.string.start), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addGameToFireBase();
@@ -86,21 +86,21 @@ public class CreateGameDialog extends DialogFragment {
 
         if(!name.isEmpty()){
 
-            // create fields for WhoTuneGame object
+            // create fields for WhoTuneRound object
             String photoUrl = SharedPrefUtils.getPhotoUrl(getActivity());
             String displayName = SharedPrefUtils.getDisplayName(getActivity());
             String userUid = SharedPrefUtils.getUid(getActivity());
             Admin admin = new Admin(photoUrl, displayName, userUid);
 
-            HashMap<String, Player> players = new HashMap<>();
-            players.put(userUid, new Player(displayName, photoUrl, userUid));
+            HashMap<String, User> players = new HashMap<>();
+            players.put(userUid, new User(displayName, photoUrl, userUid));
 
-            ArrayList<GuessOrAnswer> playList = new ArrayList<>();
+            ArrayList<UsersTrack> playList = new ArrayList<>();
 
-            // save game to db
-            String key = FireBaseRef.games.push().getKey();
+            // save round to db
+            String key = FireBaseRef.rounds.push().getKey();
             SharedPrefUtils.saveGameId(key, getActivity());
-            FireBaseRef.games.child(key).setValue(new WhoTuneGame(
+            FireBaseRef.rounds.child(key).setValue(new WhoTuneRound(
                     name,
                     admin,
                     new Date(),
