@@ -23,7 +23,7 @@ import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.UsersTrack;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
-import se.rickylagerkvist.whotune.presentation.playersInGame.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**

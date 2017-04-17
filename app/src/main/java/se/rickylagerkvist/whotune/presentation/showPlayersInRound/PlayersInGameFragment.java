@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.presentation.playersInGame;
+package se.rickylagerkvist.whotune.presentation.showPlayersInRound;
 
 
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.presentation.playersHasSelectedTrack;
+package se.rickylagerkvist.whotune.presentation.showUsersThatHasSelectedTrack;
 
 
 import android.os.Bundle;

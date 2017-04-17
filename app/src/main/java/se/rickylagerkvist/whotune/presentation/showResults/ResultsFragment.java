@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.presentation.results;
+package se.rickylagerkvist.whotune.presentation.showResults;
 
 
 import android.os.Bundle;

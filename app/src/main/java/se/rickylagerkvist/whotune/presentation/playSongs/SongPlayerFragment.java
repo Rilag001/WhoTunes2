@@ -33,7 +33,6 @@ import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
 import se.rickylagerkvist.whotune.utils.DialogHelpers;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;

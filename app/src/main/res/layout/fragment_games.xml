@@ -5,7 +5,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    tools:context=".presentation.gamesList.GamesFragment">
+    tools:context=".presentation.showRounds.GamesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

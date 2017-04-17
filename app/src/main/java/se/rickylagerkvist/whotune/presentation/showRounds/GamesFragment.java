@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.presentation.gamesList;
+package se.rickylagerkvist.whotune.presentation.showRounds;
 
 
 import android.os.Bundle;

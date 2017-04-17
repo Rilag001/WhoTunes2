@@ -34,7 +34,7 @@ import java.util.List;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
-import se.rickylagerkvist.whotune.presentation.playersHasSelectedTrack.PlayersHasSelectedTrackFragment;
+import se.rickylagerkvist.whotune.presentation.showUsersThatHasSelectedTrack.PlayersHasSelectedTrackFragment;
 
 /**
  * A simple {@link Fragment} subclass.

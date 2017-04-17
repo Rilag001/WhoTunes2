@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.presentation.results.ResultsFragment;
+import se.rickylagerkvist.whotune.presentation.showResults.ResultsFragment;
 
 /**
  * Created by rickylagerkvist on 2017-04-07.

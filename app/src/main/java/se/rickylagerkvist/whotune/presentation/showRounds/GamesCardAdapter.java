@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.presentation.gamesList;
+package se.rickylagerkvist.whotune.presentation.showRounds;
 
 import android.app.Activity;
 
@@ -17,7 +17,7 @@ import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.GameState;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
-import se.rickylagerkvist.whotune.presentation.playersInGame.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
 

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import se.rickylagerkvist.whotune.presentation.gamesList.GamesFragment;
+import se.rickylagerkvist.whotune.presentation.showRounds.GamesFragment;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.login.FirebaseLogInActivity;
