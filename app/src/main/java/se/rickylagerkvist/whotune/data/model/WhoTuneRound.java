@@ -15,12 +15,12 @@ public class WhoTuneRound {
     private Date createdDate;
     private HashMap<String, User> players;
     private ArrayList<UsersTrack> playList;
-    private GameState gameState;
+    private RoundState gameState;
 
     public WhoTuneRound() {
     }
 
-    public WhoTuneRound(String name, Admin admin, Date createdDate, HashMap<String, User> players, ArrayList<UsersTrack> playList, GameState gameState) {
+    public WhoTuneRound(String name, Admin admin, Date createdDate, HashMap<String, User> players, ArrayList<UsersTrack> playList, RoundState gameState) {
         this.name = name;
         this.admin = admin;
         this.createdDate = createdDate;
@@ -50,7 +50,7 @@ public class WhoTuneRound {
         return playList;
     }
 
-    public GameState getGameState() {
+    public RoundState getGameState() {
         return gameState;
     }
 
@@ -75,7 +75,7 @@ public class WhoTuneRound {
         this.playList = playList;
     }
 
-    public void setGameState(GameState gameState) {
+    public void setGameState(RoundState gameState) {
         this.gameState = gameState;
     }
 }

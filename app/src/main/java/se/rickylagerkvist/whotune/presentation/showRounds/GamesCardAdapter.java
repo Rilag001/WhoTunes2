@@ -14,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.GameState;
+import se.rickylagerkvist.whotune.data.model.RoundState;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
@@ -40,7 +40,7 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
         TextView createdDate = (TextView) v.findViewById(R.id.tv_created_date);
         TextView join =(TextView) v.findViewById(R.id.tv_join_game);
 
-        if(model.getGameState().equals(GameState.OPEN)){
+        if(model.getGameState().equals(RoundState.OPEN)){
             name.setText(model.getName());
             Glide.with(v.getContext()).load(model.getAdmin().getCreatorProfilePicUrl()).into(profilePic);
             createdBy.setText(v.getResources().getString(R.string.game_created_by, model.getAdmin().getCreatorName()));

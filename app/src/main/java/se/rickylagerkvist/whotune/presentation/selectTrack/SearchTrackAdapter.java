@@ -81,10 +81,6 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
             public void onClick(View v) {
                 view.setSelectedTrackUI(track);
 
-                // save track to round tracklist
-//                final UsersTrack guessOrAnswer = new UsersTrack(SharedPrefUtils.getUid(v.getContext()), track.getUri());
-//                FireBaseRef.round(SharedPrefUtils.getGameId(v.getContext())).child("playList").push().setValue(guessOrAnswer);
-
                 // save track to player
                 FireBaseRef.roundUsers(SharedPrefUtils.getGameId(v.getContext())).child(SharedPrefUtils.getUid(v.getContext())).child("selectedTrack").setValue(track);
             }

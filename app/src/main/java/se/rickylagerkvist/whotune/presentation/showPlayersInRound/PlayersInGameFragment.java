@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.data.model.Admin;
-import se.rickylagerkvist.whotune.data.model.GameState;
+import se.rickylagerkvist.whotune.data.model.RoundState;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.selectTrack.SelectTrackFragment;
@@ -36,7 +36,7 @@ public class PlayersInGameFragment extends Fragment {
     private ListView listView;
     private Button btnStartGame;
     private PlayersCardAdapter adapter;
-    private DatabaseReference gameRef, adminRef, playersRef;
+    private DatabaseReference roundRef, adminRef, playersRef;
     private ImageView ivExit;
     private boolean isAdmin;
     // end region
@@ -80,7 +80,8 @@ public class PlayersInGameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isAdmin){
-                    gameRef.child("gameState").setValue(GameState.SELECTING_TRACK);
+                    FireBaseRef.roundGameState(SharedPrefUtils.getGameId(getContext())).setValue(RoundState.SELECTING_TRACK);
+                    //roundRef.child("gameState").setValue(RoundState.SELECTING_TRACK);
                     ((MainActivity)v.getContext()).changeFragment(SelectTrackFragment.newInstance(),false);
                 } else {
                     Toast.makeText(getContext(), R.string.only_admin_can_start_game, Toast.LENGTH_SHORT).show();
@@ -93,7 +94,7 @@ public class PlayersInGameFragment extends Fragment {
     }
 
     private void checkIfYouAreAdmin() {
-        adminRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        FireBaseRef.roundAdmin(SharedPrefUtils.getGameId(getContext())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Admin admin = dataSnapshot.getValue(Admin.class);
@@ -114,18 +115,18 @@ public class PlayersInGameFragment extends Fragment {
 
     private void setUpFirebaseRefs() {
 
-        gameRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity()));
-
-        adminRef = gameRef.child("admin");
-
-        playersRef = gameRef.child("players");
+//        roundRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity()));
+//
+//        adminRef = roundRef.child("admin");
+//
+//        playersRef = roundRef.child("players");
 
         // if round state changes (ie admin has changed state, nav to SelectTrackFragment)
         FireBaseRef.roundGameState(SharedPrefUtils.getGameId(getActivity())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GameState state = dataSnapshot.getValue(GameState.class);
-                if(state == GameState.SELECTING_TRACK){
+                RoundState state = dataSnapshot.getValue(RoundState.class);
+                if(state == RoundState.SELECTING_TRACK){
                     ((MainActivity)getActivity()).changeFragment(SelectTrackFragment.newInstance(),false);
                 }
             }
@@ -143,7 +144,7 @@ public class PlayersInGameFragment extends Fragment {
                 getActivity(),
                 User.class,
                 R.layout.player_card,
-                playersRef, false, false);
+                FireBaseRef.roundPlayList(SharedPrefUtils.getGameId(getContext())), false, false);
         listView.setAdapter(adapter);
     }
 

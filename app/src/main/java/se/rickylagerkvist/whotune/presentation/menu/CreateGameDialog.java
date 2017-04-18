@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.Admin;
-import se.rickylagerkvist.whotune.data.model.GameState;
+import se.rickylagerkvist.whotune.data.model.RoundState;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.UsersTrack;
@@ -105,7 +105,7 @@ public class CreateGameDialog extends DialogFragment {
                     new Date(),
                     players,
                     playList,
-                    GameState.OPEN
+                    RoundState.OPEN
             ));
 
             // bundle key send to PlayersInGameFragment

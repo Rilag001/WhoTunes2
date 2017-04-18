@@ -19,6 +19,7 @@ import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.Admin;
+import se.rickylagerkvist.whotune.data.model.RoundState;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
 import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;
