@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import se.rickylagerkvist.whotune.presentation.showRounds.GamesFragment;
+import se.rickylagerkvist.whotune.presentation.showRounds.RoundsFragment;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.login.FirebaseLogInActivity;
@@ -59,7 +59,7 @@ public class MenuFragment extends Fragment {
         btnJoinGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getContext()).changeFragment(GamesFragment.newInstance(), true);
+                ((MainActivity) getContext()).changeFragment(RoundsFragment.newInstance(), true);
             }
         });
 
@@ -79,7 +79,6 @@ public class MenuFragment extends Fragment {
                 startActivity(new Intent(getActivity(), FirebaseLogInActivity.class));
             }
         });
-
 
         return rootView;
     }

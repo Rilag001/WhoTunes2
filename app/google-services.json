@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "708282265593-uh7snhqcvvdvpp43m97uarh7eflh97k3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "se.rickylagerkvist.themusicgame",
+            "certificate_hash": "2ad53ebef5ef0d1aedfa50c4d2aedc8641a88e50"
+          }
+        },
+        {
           "client_id": "708282265593-3ddig0on6tu2ch22lomqg7h263tgqu5f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "se.rickylagerkvist.themusicgame",
-            "certificate_hash": "BC9FDDDE27D6779888188C797E4CC50DC6971BBD"
+            "certificate_hash": "bc9fddde27d6779888188c797e4cc50dc6971bbd"
           }
         },
         {

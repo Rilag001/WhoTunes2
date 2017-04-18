@@ -17,8 +17,10 @@
     <Button
         android:id="@+id/btn_results_end_game"
         android:text="@string/end_game"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

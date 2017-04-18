@@ -9,25 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import se.rickylagerkvist.whotune.R;
+import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GamesFragment extends Fragment {
+public class RoundsFragment extends Fragment {
 
     ImageView ivExit;
 
-    public GamesFragment() {
+    public RoundsFragment() {
         // Required empty public constructor
     }
 
-    public static GamesFragment newInstance() {
-        GamesFragment fragment = new GamesFragment();
+    public static RoundsFragment newInstance() {
+        RoundsFragment fragment = new RoundsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -40,9 +38,8 @@ public class GamesFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_games, container, false);
 
-        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference("rounds");
         ListView list = (ListView) rootView.findViewById(R.id.lw_games);
-        final GamesCardAdapter gamesCardAdapter = new GamesCardAdapter(getActivity(), WhoTuneRound.class, R.layout.games_card, gamesRef);
+        final RoundsCardAdapter gamesCardAdapter = new RoundsCardAdapter(getActivity(), WhoTuneRound.class, R.layout.games_card, FireBaseRef.rounds);
         list.setAdapter(gamesCardAdapter);
 
         ivExit = (ImageView) rootView.findViewById(R.id.iv_close_games_fragment);

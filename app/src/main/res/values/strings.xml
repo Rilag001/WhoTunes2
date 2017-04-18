@@ -36,4 +36,6 @@
     <string name="start">Start</string>
     <string name="spotify_package_name">com.spotify.music</string>
 
+    <string name="selected_track_by_artist">Selected %1$s \nby %2$s</string>
+
 </resources>

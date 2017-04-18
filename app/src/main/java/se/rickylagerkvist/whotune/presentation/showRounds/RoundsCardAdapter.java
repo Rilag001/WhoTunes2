@@ -25,9 +25,9 @@ import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
  * Created by rickylagerkvist on 2017-04-04.
  */
 
-public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
+public class RoundsCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
 
-    public GamesCardAdapter(Activity activity, Class<WhoTuneRound> modelClass, int modelLayout, Query ref) {
+    public RoundsCardAdapter(Activity activity, Class<WhoTuneRound> modelClass, int modelLayout, Query ref) {
         super(activity, modelClass, modelLayout, ref);
     }
 
@@ -50,7 +50,7 @@ public class GamesCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
             join.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String gameId = GamesCardAdapter.this.getRef(position).getKey();
+                    String gameId = RoundsCardAdapter.this.getRef(position).getKey();
                     SharedPrefUtils.saveGameId(gameId, v.getContext());
 
                     // create player and save in this round

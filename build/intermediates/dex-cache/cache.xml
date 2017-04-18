@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="/Users/rickylagerkvist/.android/build-cache/790bf2953b81e1b6fd8728bdbda728a9a8e534ef/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="807751a24cf96566fd8675517c94d8463cf364db">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_062b5bbe7bc483a2fecc0fdc7948fc9b02511864/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"

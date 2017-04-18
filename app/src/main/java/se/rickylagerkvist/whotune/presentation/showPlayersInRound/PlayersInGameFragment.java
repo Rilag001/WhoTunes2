@@ -35,9 +35,6 @@ public class PlayersInGameFragment extends Fragment {
     // member variables
     private ListView listView;
     private Button btnStartGame;
-    private PlayersCardAdapter adapter;
-    private DatabaseReference roundRef, adminRef, playersRef;
-    private ImageView ivExit;
     private boolean isAdmin;
     // end region
 
@@ -59,7 +56,7 @@ public class PlayersInGameFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_players_in_game, container, false);
 
         listView = (ListView) rootView.findViewById(R.id.lv_players);
-        ivExit = (ImageView) rootView.findViewById(R.id.iv_close_players_fragment);
+        ImageView ivExit = (ImageView) rootView.findViewById(R.id.iv_close_players_fragment);
         btnStartGame = (Button) rootView.findViewById(R.id.btn_start_game);
 
         setUpFirebaseRefs();
@@ -86,7 +83,6 @@ public class PlayersInGameFragment extends Fragment {
                 } else {
                     Toast.makeText(getContext(), R.string.only_admin_can_start_game, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -115,12 +111,6 @@ public class PlayersInGameFragment extends Fragment {
 
     private void setUpFirebaseRefs() {
 
-//        roundRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity()));
-//
-//        adminRef = roundRef.child("admin");
-//
-//        playersRef = roundRef.child("players");
-
         // if round state changes (ie admin has changed state, nav to SelectTrackFragment)
         FireBaseRef.roundGameState(SharedPrefUtils.getGameId(getActivity())).addValueEventListener(new ValueEventListener() {
             @Override
@@ -140,11 +130,11 @@ public class PlayersInGameFragment extends Fragment {
 
     private void setUpListView() {
 
-        adapter = new PlayersCardAdapter(
+        PlayersCardAdapter adapter = new PlayersCardAdapter(
                 getActivity(),
                 User.class,
                 R.layout.player_card,
-                FireBaseRef.roundPlayList(SharedPrefUtils.getGameId(getContext())), false, false);
+                FireBaseRef.roundUsers(SharedPrefUtils.getGameId(getContext())), false, false);
         listView.setAdapter(adapter);
     }
 

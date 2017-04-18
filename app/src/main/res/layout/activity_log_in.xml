@@ -9,7 +9,7 @@
 
     <ImageView
         android:layout_width="0dp"
-        android:src="@drawable/ow3"
+        android:src="@drawable/music_owl"
         android:id="@+id/infoImage"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"

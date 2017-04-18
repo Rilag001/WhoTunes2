@@ -24,12 +24,6 @@ import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
  */
 public class PlayersHasSelectedTrackFragment extends Fragment{
 
-    private PlayersCardAdapter adapter;
-    private ListView listView;
-    private Button btnPlayTracks;
-    private DatabaseReference playersRef;
-    // private Image exitImage;
-
     public PlayersHasSelectedTrackFragment() {
         // Required empty public constructor
     }
@@ -47,13 +41,13 @@ public class PlayersHasSelectedTrackFragment extends Fragment{
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_players_has_selected_track, container, false);
 
-        playersRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity())).child("players");
+        DatabaseReference playersRef = FireBaseRef.round(SharedPrefUtils.getGameId(getActivity())).child("players");
 
-        listView = (ListView) rootView.findViewById(R.id.lv_players_that_has_selected_track);
-        adapter = new PlayersCardAdapter(getActivity(), User.class, R.layout.player_card, playersRef, true, false);
+        ListView listView = (ListView) rootView.findViewById(R.id.lv_players_that_has_selected_track);
+        PlayersCardAdapter adapter = new PlayersCardAdapter(getActivity(), User.class, R.layout.player_card, playersRef, true, false);
         listView.setAdapter(adapter);
 
-        btnPlayTracks = (Button) rootView.findViewById(R.id.btn_play_tracks);
+        Button btnPlayTracks = (Button) rootView.findViewById(R.id.btn_play_tracks);
         btnPlayTracks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
