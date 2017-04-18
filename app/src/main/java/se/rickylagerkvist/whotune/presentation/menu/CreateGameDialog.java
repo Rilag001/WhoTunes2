@@ -56,7 +56,6 @@ public class CreateGameDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        // TODO fix wrong text color
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();

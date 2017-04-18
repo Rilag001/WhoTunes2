@@ -1,5 +1,6 @@
 package se.rickylagerkvist.whotune;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -32,27 +33,28 @@ public class MainActivity extends AppCompatActivity implements
     // Can be any integer
     private static final int REQUEST_CODE = 1225;
     private Player spotifyPlayer;
-    private static String SPOTIFY_PACKAGE_NAME = "com.spotify.music";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         // init MenuFragment
         changeFragment(MenuFragment.newInstance(), false);
+        isSpotifyInstalledHandler();
+        spotifyAuth();
+    }
 
-        // check is spotify is installed
-        boolean isSpotifyInstalled = ConvertAndFormatHelpers.isPackageInstalled(SPOTIFY_PACKAGE_NAME, this.getPackageManager());
+    private void isSpotifyInstalledHandler() {
+        boolean isSpotifyInstalled = ConvertAndFormatHelpers.isPackageInstalled(getString(R.string.spotify_package_name), this.getPackageManager());
         if(!isSpotifyInstalled){
             DialogHelpers.showSpotifyNotInstalledDialog(this);
         } else {
             Log.d("MainActivity", "Spotify installed");
         }
+    }
 
+    private void spotifyAuth() {
         // Authentication to Spotify
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -99,11 +101,23 @@ public class MainActivity extends AppCompatActivity implements
                         Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
                     }
                 });
+            } else {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Error with player")
+                        .setMessage("Make sure you got Spotify installed on this device and try again.")
+                        .setCancelable(false)
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                System.exit(0);
+                            }
+                        })
+                        .show();
             }
-            // TODO error handle
         }
     }
 
+    // Spotify callbacks
     @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");

@@ -34,5 +34,6 @@
     <string name="end_game">End game</string>
     <string name="show_results">Show results</string>
     <string name="start">Start</string>
+    <string name="spotify_package_name">com.spotify.music</string>
 
 </resources>

@@ -39,7 +39,7 @@ public class PlayersCardAdapter extends FirebaseListAdapter<User> {
         TextView selectedTrack = (TextView) v.findViewById(R.id.tv_pickedTrack);
         ImageView selectedTrackImage = (ImageView) v.findViewById(R.id.im_picked_track_image);
 
-        // mode SelectedTrackFragment Todo
+        // mode SelectedTrackFragment
         if(mSelectedTrackCheck){
             if(model.getSelectedTrack() == null){
                 rootLayout.setVisibility(View.GONE);

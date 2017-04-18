@@ -21,7 +21,6 @@ public class DialogHelpers {
         new AlertDialog.Builder(context)
                 .setTitle(R.string.info_dialog_title)
                 .setMessage(R.string.info_dialog_message)
-                .setCancelable(false)
                 .setPositiveButton(R.string.info_dialog_positive_btn, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -41,22 +40,8 @@ public class DialogHelpers {
                         try {
                             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.spotify.music")));
                         } catch (ActivityNotFoundException anfe) {
-                            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.spotify.music")));
+                            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + context.getString(R.string.spotify_package_name))));
                         }
-                    }
-                })
-                .show();
-    }
-
-    public static void showPlayerCoundNotBeInitialized(final Context context){
-        new AlertDialog.Builder(context)
-                .setTitle("Error with player")
-                .setMessage("Make sure you got Spotify installed on this device and try again.")
-                .setCancelable(false)
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
                     }
                 })
                 .show();
