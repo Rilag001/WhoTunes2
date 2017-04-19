@@ -1,26 +1,45 @@
 package se.rickylagerkvist.whotune.presentation.showResults;
 
 
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
+import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.Admin;
-import se.rickylagerkvist.whotune.data.model.RoundState;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.PlayList;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.SpotifyProfile;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.Tracks;
 import se.rickylagerkvist.whotune.data.model.User;
+import se.rickylagerkvist.whotune.data.model.UsersTrack;
+import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
+import se.rickylagerkvist.whotune.presentation.menu.CreateGameDialog;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
 import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
@@ -34,7 +53,14 @@ public class ResultsFragment extends Fragment {
     private PlayersCardAdapter adapter;
     private DatabaseReference playersRef, adminRef;
     private Button btnEndGame;
+    private ImageButton btnPostPlayList;
     private boolean isAdmin;
+
+    String roundName;
+
+
+    Retrofit retrofit;
+    SpotifyService spotifyService;
 
     public ResultsFragment() {
         // Required empty public constructor
@@ -62,6 +88,7 @@ public class ResultsFragment extends Fragment {
         checkIfYouAreAdmin();
         gameListener();
 
+        // end game
         btnEndGame = (Button) rootView.findViewById(R.id.btn_results_end_game);
         btnEndGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +101,17 @@ public class ResultsFragment extends Fragment {
             }
         });
 
+        // post playlist
+        btnPostPlayList = (ImageButton) rootView.findViewById(R.id.btn_post_playlist);
+        btnPostPlayList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //postPlaylist();
+                DialogFragment dialog = PostPlayListDialog.newInstance(roundName);
+                dialog.show(getActivity().getFragmentManager(), "PostPlayListDialog");
+            }
+        });
+
         return rootView;
     }
 
@@ -81,6 +119,8 @@ public class ResultsFragment extends Fragment {
         FireBaseRef.round(SharedPrefUtils.getGameId(getContext())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                WhoTuneRound round = dataSnapshot.getValue(WhoTuneRound.class);
+                roundName = round.getName();
                 if(!dataSnapshot.exists()){
                     ((MainActivity)getContext()).changeFragment(MenuFragment.newInstance(), false);
                 }

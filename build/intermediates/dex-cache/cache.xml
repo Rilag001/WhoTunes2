@@ -3,12 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/Users/rickylagerkvist/.android/build-cache/790bf2953b81e1b6fd8728bdbda728a9a8e534ef/output/jars/classes.jar"
+        jar="/Users/rickylagerkvist/.android/build-cache/84641ab8cb8a9d597960c02081f8ced56586b912/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="807751a24cf96566fd8675517c94d8463cf364db">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_062b5bbe7bc483a2fecc0fdc7948fc9b02511864/classes.dex" />
+        sha1="40b4c3967e7cd13f24a07426a201bf832bbc1c16">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3ca4b5a2f7919864619d74e44072067500145a8f/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="2d38898834aa35e54c9860253e190d9c5ecaa1e8">
+        sha1="d74376dda02d4b3963249ddd83b678480229a5b4">
         <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c69747534ef597f73ab5430ced39e7d5dddb40c5/classes.dex" />
     </item>
 

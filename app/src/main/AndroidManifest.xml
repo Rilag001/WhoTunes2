@@ -14,10 +14,13 @@
 
         <!-- Needed for LoginActivity to work -->
         <activity
+            android:screenOrientation="portrait"
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name=".presentation.login.FirebaseLogInActivity">
+        <activity
+            android:name=".presentation.login.FirebaseLogInActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +29,7 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"/>
 
     </application>

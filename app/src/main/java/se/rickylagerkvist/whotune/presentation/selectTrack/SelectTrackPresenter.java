@@ -4,51 +4,50 @@ package se.rickylagerkvist.whotune.presentation.selectTrack;
  * Created by rickylagerkvist on 2017-04-05.
  */
 
-import android.util.Log;
-
-import com.alibaba.fastjson.JSON;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-import se.rickylagerkvist.whotune.data.database.SpotifyClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.TrackList;
 
 public class SelectTrackPresenter {
 
     View view;
+    Retrofit retrofit;
+    SpotifyService spotifyService;
 
     public SelectTrackPresenter(View view) {
         this.view = view;
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spotify.com/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        spotifyService = retrofit.create(SpotifyService.class);
     }
 
     void searchTrack(String searchText) throws JSONException {
 
         if(!view.searchEditText().isEmpty()){
 
-            String newSearchText = SpotifyClient.SEARCH_TRACK_URL.replace("{search}", searchText.replace(" ", "+"));
-
-            SpotifyClient.get(newSearchText, null, new JsonHttpResponseHandler(){
-
+            Call<TrackList> trackList = spotifyService.getTracks(searchText.replace(" ", "+"), "track", "20");
+            trackList.enqueue(new Callback<TrackList>() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    Log.d("asd", "---------------- this is response : " + response);
-
-                    TrackList tacksList = JSON.parseObject(response.toString(), TrackList.class);
-
-                    List<Track> tracks = tacksList.getTracks().getItems();
+                public void onResponse(Call<TrackList> call, Response<TrackList> response) {
+                    List<Track> tracks = response.body().getTracks().getItems();
                     view.updateList(tracks);
                     view.toggleNoTrackFoundLayout(tracks.isEmpty());
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                public void onFailure(Call<TrackList> call, Throwable t) {
 
                 }
             });

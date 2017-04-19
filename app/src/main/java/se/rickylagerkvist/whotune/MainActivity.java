@@ -4,11 +4,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -19,10 +22,17 @@ import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
 
-import se.rickylagerkvist.whotune.data.database.SpotifyClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import se.rickylagerkvist.whotune.data.database.SpotifyService;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.SpotifyProfile;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
 import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
 import se.rickylagerkvist.whotune.utils.DialogHelpers;
+import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 public class MainActivity extends AppCompatActivity implements
         PlayerNotificationCallback, ConnectionStateCallback {
@@ -43,6 +53,14 @@ public class MainActivity extends AppCompatActivity implements
         changeFragment(MenuFragment.newInstance(), false);
         isSpotifyInstalledHandler();
         spotifyAuth();
+
+//        StyleableToast st = new StyleableToast(this, "Loading stuff", Toast.LENGTH_LONG);
+//        st.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+//        st.setTextColor(ContextCompat.getColor(this, R.color.white));
+//        st.setIcon(R.drawable.ic_autorenew_white_18dp);
+//        st.spinIcon();
+//        st.setCornerRadius(30);
+//        st.show();
     }
 
     private void isSpotifyInstalledHandler() {
@@ -59,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setScopes(new String[]{"user-read-private", "streaming", "playlist-modify-public", "playlist-modify-private"});
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
@@ -85,7 +103,10 @@ public class MainActivity extends AppCompatActivity implements
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
 
-                SpotifyClient.AUTH_TOKEN = response.getAccessToken();
+                // save auth token
+                SharedPrefUtils.saveAuthToken(response.getAccessToken(), getApplicationContext());
+                // get and save profile id
+                getSpotifyProfile(response.getAccessToken());
 
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
                 Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
@@ -115,6 +136,30 @@ public class MainActivity extends AppCompatActivity implements
                         .show();
             }
         }
+    }
+
+    private void getSpotifyProfile(String auth) {
+
+        Retrofit retrofit;
+        SpotifyService spotifyService;
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spotify.com/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        spotifyService = retrofit.create(SpotifyService.class);
+
+        Call<SpotifyProfile> meCall = spotifyService.getSpotifyProfile("Bearer " + auth);
+        meCall.enqueue(new Callback<SpotifyProfile>() {
+            @Override
+            public void onResponse(Call<SpotifyProfile> call, Response<SpotifyProfile> response) {
+                SharedPrefUtils.saveSpotifyProfileId(response.body().getId(), getApplicationContext());
+            }
+
+            @Override
+            public void onFailure(Call<SpotifyProfile> call, Throwable t) {
+            }
+        });
     }
 
     // Spotify callbacks

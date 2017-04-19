@@ -78,6 +78,8 @@ dependencies {
     // fastjson
     compile 'com.alibaba:fastjson:1.2.21'
 
+    compile 'com.muddzdev:styleabletoast:1.0.7'
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

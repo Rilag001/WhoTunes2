@@ -26,6 +26,14 @@ public class SharedPrefUtils {
         return PreferenceManager.getDefaultSharedPreferences(context).getString("GAME_ID", "");
     }
 
+    public static String getAuthToken(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("AUTH_TOKEN", "");
+    }
+
+    public static String getSpotifyProfileId(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("PROFILE_ID", "");
+    }
+
 
     // set
     public static void saveUid(String uid, Context context){
@@ -43,4 +51,13 @@ public class SharedPrefUtils {
     public static void saveGameId(String gameId, Context context){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("GAME_ID", gameId).apply();
     }
+
+    public static void saveAuthToken(String authToken, Context context){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("AUTH_TOKEN", authToken).apply();
+    }
+
+    public static void saveSpotifyProfileId(String profileId, Context context){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("PROFILE_ID", profileId).apply();
+    }
+
 }

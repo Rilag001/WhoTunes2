@@ -53,7 +53,7 @@ public class PlayersCardAdapter extends FirebaseListAdapter<User> {
             selectedTrack.setVisibility(View.VISIBLE);
             selectedTrackImage.setVisibility(View.VISIBLE);
 
-            selectedTrack.setText(v.getResources().getString(R.string.selected_track_by_artist, model.getSelectedTrack().getName(), model.getSelectedTrack().getName()));
+            selectedTrack.setText(v.getResources().getString(R.string.selected_track_by_artist, model.getSelectedTrack().getName(), model.getSelectedTrack().getAllArtistAsJoinedString()));
             Glide.with(v.getContext()).load(model.getSelectedTrack().getSmallCoverArt()).into(selectedTrackImage);
         }
 
