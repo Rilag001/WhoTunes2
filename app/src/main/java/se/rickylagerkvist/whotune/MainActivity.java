@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import se.rickylagerkvist.whotune.data.database.ApiUtils;
 import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.SpotifyProfile;
 import se.rickylagerkvist.whotune.presentation.menu.MenuFragment;
@@ -140,14 +141,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void getSpotifyProfile(String auth) {
 
-        Retrofit retrofit;
-        SpotifyService spotifyService;
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spotify.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        spotifyService = retrofit.create(SpotifyService.class);
+        SpotifyService spotifyService = ApiUtils.getSpotifyService();
 
         Call<SpotifyProfile> meCall = spotifyService.getSpotifyProfile("Bearer " + auth);
         meCall.enqueue(new Callback<SpotifyProfile>() {

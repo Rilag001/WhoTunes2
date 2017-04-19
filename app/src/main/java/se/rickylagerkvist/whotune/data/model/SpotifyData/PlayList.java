@@ -1,6 +1,5 @@
 package se.rickylagerkvist.whotune.data.model.SpotifyData;
 
-import java.util.ArrayList;
 
 /**
  * Created by rickylagerkvist on 2017-04-19.

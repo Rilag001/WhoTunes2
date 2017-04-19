@@ -20,8 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.spotify.sdk.android.player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +37,7 @@ import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.Admin;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.PlayList;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.SpotifyProfile;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Tracks;
 import se.rickylagerkvist.whotune.data.model.User;
 import se.rickylagerkvist.whotune.data.model.UsersTrack;
@@ -49,18 +52,8 @@ import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
  */
 public class ResultsFragment extends Fragment {
 
-    private ListView listView;
-    private PlayersCardAdapter adapter;
-    private DatabaseReference playersRef, adminRef;
-    private Button btnEndGame;
-    private ImageButton btnPostPlayList;
     private boolean isAdmin;
-
-    String roundName;
-
-
-    Retrofit retrofit;
-    SpotifyService spotifyService;
+    private String roundName;
 
     public ResultsFragment() {
         // Required empty public constructor
@@ -80,16 +73,16 @@ public class ResultsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_results, container, false);
 
-        listView = (ListView) rootView.findViewById(R.id.lv_results);
-        playersRef = FireBaseRef.round(SharedPrefUtils.getGameId(getContext())).child("players");
-        adapter = new PlayersCardAdapter(getActivity(), User.class, R.layout.player_card, playersRef, false, true);
+        ListView listView = (ListView) rootView.findViewById(R.id.lv_results);
+        DatabaseReference playersRef = FireBaseRef.round(SharedPrefUtils.getGameId(getContext())).child("players");
+        PlayersCardAdapter adapter = new PlayersCardAdapter(getActivity(), User.class, R.layout.player_card, playersRef, false, true);
         listView.setAdapter(adapter);
 
         checkIfYouAreAdmin();
         gameListener();
 
         // end game
-        btnEndGame = (Button) rootView.findViewById(R.id.btn_results_end_game);
+        Button btnEndGame = (Button) rootView.findViewById(R.id.btn_results_end_game);
         btnEndGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +95,7 @@ public class ResultsFragment extends Fragment {
         });
 
         // post playlist
-        btnPostPlayList = (ImageButton) rootView.findViewById(R.id.btn_post_playlist);
+        ImageButton btnPostPlayList = (ImageButton) rootView.findViewById(R.id.btn_post_playlist);
         btnPostPlayList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,10 +112,28 @@ public class ResultsFragment extends Fragment {
         FireBaseRef.round(SharedPrefUtils.getGameId(getContext())).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                WhoTuneRound round = dataSnapshot.getValue(WhoTuneRound.class);
-                roundName = round.getName();
+
+                // end game
                 if(!dataSnapshot.exists()){
-                    ((MainActivity)getContext()).changeFragment(MenuFragment.newInstance(), false);
+                    try{
+                        ((MainActivity)getContext()).changeFragment(MenuFragment.newInstance(), false);
+                    } catch (Exception e){
+                        Log.e("ResultsFragment", e.toString());
+                    }
+                } else {
+                    WhoTuneRound round = dataSnapshot.getValue(WhoTuneRound.class);
+
+                    // get name
+                    roundName = round.getName();
+
+//                    // get tracks
+//                    ArrayList<Track> trackList = new ArrayList<>();
+//
+//                    HashMap<String,User> players = round.getPlayers();
+//                    for (User value : players.values()){
+//                        trackList.add(value.getSelectedTrack());
+//                    }
+//                    tracks = new Tracks(trackList);
                 }
             }
 
@@ -135,7 +146,7 @@ public class ResultsFragment extends Fragment {
 
     private void checkIfYouAreAdmin() {
 
-        adminRef = FireBaseRef.roundAdmin(SharedPrefUtils.getGameId(getContext()));
+        DatabaseReference adminRef = FireBaseRef.roundAdmin(SharedPrefUtils.getGameId(getContext()));
         adminRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

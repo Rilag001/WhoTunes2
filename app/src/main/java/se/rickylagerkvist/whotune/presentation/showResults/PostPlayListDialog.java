@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +21,7 @@ import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.ApiUtils;
 import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.PlayList;
+import se.rickylagerkvist.whotune.data.model.SpotifyData.Tracks;
 import se.rickylagerkvist.whotune.presentation.menu.CreateGameDialog;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
@@ -29,6 +32,7 @@ import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 public class PostPlayListDialog extends DialogFragment {
 
     EditText editTextName;
+    Tracks tracks;
 
     public static PostPlayListDialog newInstance(String roundName){
         PostPlayListDialog postPlayListDialog = new PostPlayListDialog();
@@ -62,6 +66,7 @@ public class PostPlayListDialog extends DialogFragment {
         // get bundle
         Bundle bundle = this.getArguments();
         editTextName.setText(bundle.getString("roundName"));
+        tracks = new Gson().fromJson(bundle.getString("tracks"), Tracks.class);
 
         // click actions
         builder.setView(rootView)
@@ -75,7 +80,7 @@ public class PostPlayListDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(!editTextName.getText().toString().isEmpty()){
-                            postPlayList(getActivity().getApplicationContext(), editTextName.getText().toString());
+                            postPlayList(getActivity().getApplicationContext(), editTextName.getText().toString(), tracks);
                         } else {
                             Toast.makeText(getActivity().getApplicationContext(), "Enter a name", Toast.LENGTH_SHORT).show();
                         }
@@ -85,7 +90,7 @@ public class PostPlayListDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void postPlayList(final Context context, String name) {
+    private void postPlayList(final Context context, String name, Tracks tracks) {
 
         SpotifyService spotifyService = ApiUtils.getSpotifyService();
 

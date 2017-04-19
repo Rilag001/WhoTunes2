@@ -13,6 +13,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import se.rickylagerkvist.whotune.data.database.ApiUtils;
 import se.rickylagerkvist.whotune.data.database.SpotifyService;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
 import se.rickylagerkvist.whotune.data.model.SpotifyData.TrackList;
@@ -20,17 +21,12 @@ import se.rickylagerkvist.whotune.data.model.SpotifyData.TrackList;
 public class SelectTrackPresenter {
 
     View view;
-    Retrofit retrofit;
     SpotifyService spotifyService;
 
     public SelectTrackPresenter(View view) {
         this.view = view;
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spotify.com/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        spotifyService = retrofit.create(SpotifyService.class);
+        spotifyService = ApiUtils.getSpotifyService();
     }
 
     void searchTrack(String searchText) throws JSONException {

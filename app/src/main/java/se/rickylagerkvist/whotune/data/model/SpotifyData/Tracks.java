@@ -10,6 +10,10 @@ public class Tracks {
 
     private ArrayList<Track> items;
 
+    public Tracks(ArrayList<Track> items) {
+        this.items = items;
+    }
+
     public ArrayList<Track> getItems() {
         return items;
     }
