@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.User;
+import se.rickylagerkvist.whotune.data.model.whoTune.User;
 import se.rickylagerkvist.whotune.presentation.playSongs.SongPlayerFragment;
 import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;

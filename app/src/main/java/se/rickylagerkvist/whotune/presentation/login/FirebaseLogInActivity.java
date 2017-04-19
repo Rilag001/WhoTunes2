@@ -28,7 +28,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.Profile;
+import se.rickylagerkvist.whotune.data.model.whoTune.Profile;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 public class FirebaseLogInActivity extends AppCompatActivity

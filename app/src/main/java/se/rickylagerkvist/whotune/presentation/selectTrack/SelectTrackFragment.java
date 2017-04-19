@@ -33,7 +33,7 @@ import java.util.List;
 
 import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Track;
 import se.rickylagerkvist.whotune.presentation.showUsersThatHasSelectedTrack.PlayersHasSelectedTrackFragment;
 
 /**

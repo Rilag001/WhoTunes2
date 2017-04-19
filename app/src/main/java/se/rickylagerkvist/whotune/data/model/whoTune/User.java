@@ -1,8 +1,6 @@
-package se.rickylagerkvist.whotune.data.model;
+package se.rickylagerkvist.whotune.data.model.whoTune;
 
-import java.util.ArrayList;
-
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Track;
 
 /**
  * Created by Ricky on 2016-11-20.

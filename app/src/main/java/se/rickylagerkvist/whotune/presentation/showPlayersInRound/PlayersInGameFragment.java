@@ -14,14 +14,13 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.MainActivity;
-import se.rickylagerkvist.whotune.data.model.Admin;
-import se.rickylagerkvist.whotune.data.model.RoundState;
-import se.rickylagerkvist.whotune.data.model.User;
+import se.rickylagerkvist.whotune.data.model.whoTune.Admin;
+import se.rickylagerkvist.whotune.data.model.whoTune.RoundState;
+import se.rickylagerkvist.whotune.data.model.whoTune.User;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.presentation.selectTrack.SelectTrackFragment;
 import se.rickylagerkvist.whotune.presentation.shared.PlayersCardAdapter;

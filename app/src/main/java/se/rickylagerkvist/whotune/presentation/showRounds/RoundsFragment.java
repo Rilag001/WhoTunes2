@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
+import se.rickylagerkvist.whotune.data.model.whoTune.WhoTuneRound;
 
 /**
  * A simple {@link Fragment} subclass.

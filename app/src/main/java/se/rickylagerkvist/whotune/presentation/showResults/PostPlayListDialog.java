@@ -20,9 +20,8 @@ import retrofit2.Response;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.ApiUtils;
 import se.rickylagerkvist.whotune.data.database.SpotifyService;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.PlayList;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Tracks;
-import se.rickylagerkvist.whotune.presentation.menu.CreateGameDialog;
+import se.rickylagerkvist.whotune.data.model.spotify.playList.PlayList;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Tracks;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**

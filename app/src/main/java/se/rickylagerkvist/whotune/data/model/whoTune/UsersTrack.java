@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.data.model;
+package se.rickylagerkvist.whotune.data.model.whoTune;
 
 /**
  * Created by Ricky on 2016-12-04.

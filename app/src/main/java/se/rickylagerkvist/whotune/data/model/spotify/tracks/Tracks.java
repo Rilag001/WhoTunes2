@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.data.model.SpotifyData;
+package se.rickylagerkvist.whotune.data.model.spotify.tracks;
 
 import java.util.ArrayList;
 

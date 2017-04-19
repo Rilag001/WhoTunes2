@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.SpotifyData.Track;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Track;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**

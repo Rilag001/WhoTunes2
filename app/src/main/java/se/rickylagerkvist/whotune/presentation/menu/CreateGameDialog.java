@@ -16,13 +16,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
-import se.rickylagerkvist.whotune.data.model.Admin;
-import se.rickylagerkvist.whotune.data.model.RoundState;
+import se.rickylagerkvist.whotune.data.model.whoTune.Admin;
+import se.rickylagerkvist.whotune.data.model.whoTune.RoundState;
 import se.rickylagerkvist.whotune.MainActivity;
-import se.rickylagerkvist.whotune.data.model.User;
-import se.rickylagerkvist.whotune.data.model.UsersTrack;
+import se.rickylagerkvist.whotune.data.model.whoTune.User;
+import se.rickylagerkvist.whotune.data.model.whoTune.UsersTrack;
 import se.rickylagerkvist.whotune.R;
-import se.rickylagerkvist.whotune.data.model.WhoTuneRound;
+import se.rickylagerkvist.whotune.data.model.whoTune.WhoTuneRound;
 import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 

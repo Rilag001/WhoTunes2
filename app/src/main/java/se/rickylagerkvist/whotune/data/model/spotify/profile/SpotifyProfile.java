@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.data.model.SpotifyData;
+package se.rickylagerkvist.whotune.data.model.spotify.profile;
 
 /**
  * Created by rickylagerkvist on 2017-04-19.

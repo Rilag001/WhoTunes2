@@ -1,4 +1,4 @@
-package se.rickylagerkvist.whotune.data.model;
+package se.rickylagerkvist.whotune.data.model.whoTune;
 
 import java.util.ArrayList;
 import java.util.Date;

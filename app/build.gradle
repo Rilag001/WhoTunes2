@@ -68,17 +68,14 @@ dependencies {
     // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
-    
-    // ion
-    compile 'com.koushikdutta.ion:ion:2.0.0'
-    
-    // loopj
-    compile 'com.loopj.android:android-async-http:1.4.9'
 
-    // fastjson
-    compile 'com.alibaba:fastjson:1.2.21'
-
+    // styleabletoast
     compile 'com.muddzdev:styleabletoast:1.0.7'
+
+    // leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
