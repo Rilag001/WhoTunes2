@@ -18,8 +18,8 @@ import se.rickylagerkvist.whotune.data.model.spotify.tracks.TrackList;
 
 public class SelectTrackPresenter {
 
-    View view;
-    SpotifyService spotifyService;
+    private View view;
+    private SpotifyService spotifyService;
 
     public SelectTrackPresenter(View view) {
         this.view = view;
@@ -31,7 +31,7 @@ public class SelectTrackPresenter {
 
         if(!view.searchEditText().isEmpty()){
 
-            Call<TrackList> trackList = spotifyService.getTracks(searchText.replace(" ", "+"), "track", "20");
+            Call<TrackList> trackList = spotifyService.searchTracks(searchText.replace(" ", "+"), "track", "20");
             trackList.enqueue(new Callback<TrackList>() {
                 @Override
                 public void onResponse(Call<TrackList> call, Response<TrackList> response) {

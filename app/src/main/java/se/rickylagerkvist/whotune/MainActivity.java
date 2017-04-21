@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -31,7 +32,7 @@ import se.rickylagerkvist.whotune.utils.DialogHelpers;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 public class MainActivity extends AppCompatActivity implements
-        PlayerNotificationCallback, ConnectionStateCallback {
+        PlayerNotificationCallback, ConnectionStateCallback, MainActivityNavigationInterFace {
 
     private static final String CLIENT_ID = "d2765d66afd94102adb14e41de533df0";
     private static final String REDIRECT_URI = "the-music-game-login://callback";
@@ -49,15 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         changeFragment(MenuFragment.newInstance(), false);
         isSpotifyInstalledHandler();
         spotifyAuth();
-
-//        StyleableToast st = new StyleableToast(this, "Loading stuff", Toast.LENGTH_LONG);
-//        st.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-//        st.setTextColor(ContextCompat.getColor(this, R.color.white));
-//        st.setIcon(R.drawable.ic_autorenew_white_18dp);
-//        st.spinIcon();
-//        st.setCornerRadius(30);
-//        st.show();
     }
+
 
     private void isSpotifyInstalledHandler() {
         boolean isSpotifyInstalled = ConvertAndFormatHelpers.isPackageInstalled(getString(R.string.spotify_package_name), this.getPackageManager());
@@ -67,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
             Log.d("MainActivity", "Spotify installed");
         }
     }
+
 
     private void spotifyAuth() {
         // Authentication to Spotify
@@ -79,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
+
     public void changeFragment(Fragment fragment, boolean addToBackstack) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -89,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
-    // Spotify methods
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -134,15 +130,19 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+
     private void getSpotifyProfile(String auth) {
 
         SpotifyService spotifyService = ApiUtils.getSpotifyService();
 
-        Call<SpotifyProfile> meCall = spotifyService.getSpotifyProfile("Bearer " + auth);
+        Call<SpotifyProfile> meCall = spotifyService.getMyProfile("Bearer " + auth);
         meCall.enqueue(new Callback<SpotifyProfile>() {
             @Override
             public void onResponse(Call<SpotifyProfile> call, Response<SpotifyProfile> response) {
                 SharedPrefUtils.saveSpotifyProfileId(response.body().getId(), getApplicationContext());
+
+                Toast.makeText(MainActivity.this, "Welcome " + response.body().getDisplay_name(), Toast.LENGTH_SHORT).show();
+                SharedPrefUtils.saveSpotifyProfilePic(response.body().getImages().get(0).url, getApplicationContext());
             }
 
             @Override
@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
+
 
     // Spotify callbacks
     @Override

@@ -3,21 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-analyzer/1.5/3277b0b0c2ace34a2edb5ddf9d1f67829561fb8f/leakcanary-analyzer-1.5.jar"
+        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.12.0/3742beff8024d0a0073d284b7c5e4cbf73d99b25/okio-1.12.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="3277b0b0c2ace34a2edb5ddf9d1f67829561fb8f">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/leakcanary-analyzer-1.5_ba5015a4b338461341d771c530a6957453c12741/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/rickylagerkvist/.android/build-cache/119cd198bcc984ff8112f6a6d5570450c14f49db/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c7a2672b3122b897a0751f327929ae405ea02bf7">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2af6145ab6c75b004b25589dae059ade76c184d0/classes.dex" />
+        sha1="3742beff8024d0a0073d284b7c5e4cbf73d99b25">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.12.0_1326d8969dd3ac123a6b42c682e20c1c2259203d/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -30,39 +21,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-watcher/1.5/288101b16513158c2923ad3fb6161d1452b65e73/leakcanary-watcher-1.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="288101b16513158c2923ad3fb6161d1452b65e73">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/leakcanary-watcher-1.5_e02485c69ff4f764460a42c4d63b47a0a7a833a5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/rickylagerkvist/.android/build-cache/84641ab8cb8a9d597960c02081f8ced56586b912/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="40b4c3967e7cd13f24a07426a201bf832bbc1c16">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3ca4b5a2f7919864619d74e44072067500145a8f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="ade25f075a0fd3bb37779aa3f1703575d560852a">
+        sha1="2b3bb34aa4b86ab78e2c5ffd02400f183bde1a8c">
         <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_c69747534ef597f73ab5430ced39e7d5dddb40c5/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.squareup.haha/haha/2.0.3/640a438d2d415c056ca6a673ac26b183b044e160/haha-2.0.3.jar"
+        jar="/Users/rickylagerkvist/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.7.0/6edbebdd8868708db718d15c09c4b28037fd487e/okhttp-3.7.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="640a438d2d415c056ca6a673ac26b183b044e160">
-        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/haha-2.0.3_bf5c668b0c8343db880ea0981c0c4b3574377ac1/classes.dex" />
+        sha1="6edbebdd8868708db718d15c09c4b28037fd487e">
+        <dex dex="/Users/rickylagerkvist/Dev/Private/WhoTunes/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.7.0_044ea5583852e76fe7f02b8524c0c65b59dd94d4/classes.dex" />
     </item>
 
 </items>

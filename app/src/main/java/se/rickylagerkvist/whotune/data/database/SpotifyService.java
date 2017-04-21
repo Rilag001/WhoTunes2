@@ -18,10 +18,10 @@ import se.rickylagerkvist.whotune.data.model.spotify.tracks.TrackList;
 public interface SpotifyService {
 
     @GET("search")
-    Call<TrackList> getTracks(@Query("q") String search, @Query("type") String type, @Query("limit") String limit);
+    Call<TrackList> searchTracks(@Query("q") String search, @Query("type") String type, @Query("limit") String limit);
 
     @GET("me")
-    Call<SpotifyProfile> getSpotifyProfile(@Header("Authorization") String authorization);
+    Call<SpotifyProfile> getMyProfile(@Header("Authorization") String authorization);
 
     @POST("users/{user_id}/playlists")
     Call<PlayList> postPlayList(

@@ -2,6 +2,7 @@ package se.rickylagerkvist.whotune.presentation.selectTrack;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.rickylagerkvist.whotune.MainActivity;
+import se.rickylagerkvist.whotune.MainActivityNavigationInterFace;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.model.spotify.tracks.Track;
 import se.rickylagerkvist.whotune.presentation.showUsersThatHasSelectedTrack.PlayersHasSelectedTrackFragment;
@@ -55,6 +57,7 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
     private ImageView ivTrackCard;
     private Button btnSelectTrack;
     private Track selectedTrack;
+    private MainActivityNavigationInterFace navigationInterFace;
     //end region
 
 
@@ -69,6 +72,15 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            navigationInterFace = (MainActivityNavigationInterFace) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement MainActivityNavigationInterFace");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,14 +137,13 @@ public class SelectTrackFragment extends Fragment implements SelectTrackPresente
             }
         });
 
-        //
+        // navigate to PlayersHasSelectedTrackFragment
         btnSelectTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(selectedTrack != null){
-                    Bundle bundle = new Bundle();
-                    ((MainActivity) v.getContext()).changeFragment(PlayersHasSelectedTrackFragment.newInstance(), true);
+                    navigationInterFace.changeFragment(PlayersHasSelectedTrackFragment.newInstance(), true);
                 }
             }
         });

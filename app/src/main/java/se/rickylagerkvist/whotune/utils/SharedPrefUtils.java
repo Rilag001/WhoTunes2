@@ -34,6 +34,10 @@ public class SharedPrefUtils {
         return PreferenceManager.getDefaultSharedPreferences(context).getString("PROFILE_ID", "");
     }
 
+    public static String getSpotifyProfilePic(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getString("PROFILE_PIC_URL", "");
+    }
+
 
     // set
     public static void saveUid(String uid, Context context){
@@ -60,4 +64,7 @@ public class SharedPrefUtils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString("PROFILE_ID", profileId).apply();
     }
 
+    public static void saveSpotifyProfilePic(String profilePicUrl, Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString("PROFILE_PIC_URL", profilePicUrl).apply();
+    }
 }

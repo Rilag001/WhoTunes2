@@ -17,7 +17,7 @@ import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.whoTune.RoundState;
 import se.rickylagerkvist.whotune.data.model.whoTune.User;
 import se.rickylagerkvist.whotune.data.model.whoTune.WhoTuneRound;
-import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInRoundFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 import se.rickylagerkvist.whotune.utils.ConvertAndFormatHelpers;
 
@@ -65,11 +65,11 @@ public class RoundsCardAdapter extends FirebaseListAdapter<WhoTuneRound> {
                     // save to FireBase
                     FireBaseRef.round(gameId).setValue(model);
 
-                    // save key, bundle to PlayersInGameFragment
+                    // save key, bundle to PlayersInRoundFragment
                     Bundle bundle = new Bundle();
                     bundle.putString("GAME_ID", gameId);
 
-                    ((MainActivity) v.getContext()).changeFragment(PlayersInGameFragment.newInstance(), true);
+                    ((MainActivity) v.getContext()).changeFragment(PlayersInRoundFragment.newInstance(), true);
                 }
             });
 

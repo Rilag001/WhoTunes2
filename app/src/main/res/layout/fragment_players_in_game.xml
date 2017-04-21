@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".presentation.showPlayersInRound.PlayersInGameFragment">
+    tools:context=".presentation.showPlayersInRound.PlayersInRoundFragment">
 
     <LinearLayout
         android:id="@+id/fragment_players_in_game_heading"

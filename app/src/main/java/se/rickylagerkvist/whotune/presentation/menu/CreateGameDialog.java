@@ -15,15 +15,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import se.rickylagerkvist.whotune.MainActivityNavigationInterFace;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
 import se.rickylagerkvist.whotune.data.model.whoTune.Admin;
 import se.rickylagerkvist.whotune.data.model.whoTune.RoundState;
-import se.rickylagerkvist.whotune.MainActivity;
 import se.rickylagerkvist.whotune.data.model.whoTune.User;
 import se.rickylagerkvist.whotune.data.model.whoTune.UsersTrack;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.model.whoTune.WhoTuneRound;
-import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInGameFragment;
+import se.rickylagerkvist.whotune.presentation.showPlayersInRound.PlayersInRoundFragment;
 import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 
 /**
@@ -33,6 +33,7 @@ import se.rickylagerkvist.whotune.utils.SharedPrefUtils;
 public class CreateGameDialog extends DialogFragment {
 
     EditText editTextName;
+    MainActivityNavigationInterFace navigationInterFace;
 
     public static CreateGameDialog newInstance(){
         CreateGameDialog createGameDialog = new CreateGameDialog();
@@ -55,6 +56,8 @@ public class CreateGameDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        navigationInterFace = (MainActivityNavigationInterFace) getActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
 
@@ -108,12 +111,13 @@ public class CreateGameDialog extends DialogFragment {
                     RoundState.OPEN
             ));
 
-            // bundle key send to PlayersInGameFragment
+            // bundle key send to PlayersInRoundFragment
             Bundle bundle = new Bundle();
             bundle.putString("GAME_ID", key);
 
             CreateGameDialog.this.getDialog().cancel();
-            ((MainActivity) getActivity()).changeFragment(PlayersInGameFragment.newInstance(), false);
+            navigationInterFace.changeFragment(PlayersInRoundFragment.newInstance(), false);
+            //((MainActivity) getActivity()).changeFragment(PlayersInRoundFragment.newInstance(), false);
 
         } else {
             Toast.makeText(getActivity(), "Enter a name", Toast.LENGTH_SHORT).show();

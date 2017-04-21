@@ -2,6 +2,7 @@ package se.rickylagerkvist.whotune.presentation.showResults;
 
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import se.rickylagerkvist.whotune.MainActivity;
+import se.rickylagerkvist.whotune.MainActivityNavigationInterFace;
 import se.rickylagerkvist.whotune.R;
 import se.rickylagerkvist.whotune.data.database.FireBaseRef;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Track;
+import se.rickylagerkvist.whotune.data.model.spotify.tracks.Tracks;
 import se.rickylagerkvist.whotune.data.model.whoTune.Admin;
 import se.rickylagerkvist.whotune.data.model.whoTune.User;
 import se.rickylagerkvist.whotune.data.model.whoTune.WhoTuneRound;
@@ -35,6 +43,8 @@ public class ResultsFragment extends Fragment {
 
     private boolean isAdmin;
     private String roundName;
+    Tracks tracks;
+    private MainActivityNavigationInterFace navigationInterFace;
 
     public ResultsFragment() {
         // Required empty public constructor
@@ -47,6 +57,15 @@ public class ResultsFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            navigationInterFace = (MainActivityNavigationInterFace) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement MainActivityNavigationInterFace");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +90,8 @@ public class ResultsFragment extends Fragment {
                 if(isAdmin){
                     FireBaseRef.round(SharedPrefUtils.getGameId(getContext())).removeValue();
                 }
-                ((MainActivity)getContext()).changeFragment(MenuFragment.newInstance(), false);
+                navigationInterFace.changeFragment(MenuFragment.newInstance(), false);
+                //((MainActivity)getContext()).changeFragment(MenuFragment.newInstance(), false);
             }
         });
 
@@ -81,7 +101,7 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //postPlaylist();
-                DialogFragment dialog = PostPlayListDialog.newInstance(roundName);
+                DialogFragment dialog = PostPlayListDialog.newInstance(roundName, new Gson().toJson(tracks));
                 dialog.show(getActivity().getFragmentManager(), "PostPlayListDialog");
             }
         });
@@ -107,14 +127,14 @@ public class ResultsFragment extends Fragment {
                     // get name
                     roundName = round.getName();
 
-//                    // get tracks
-//                    ArrayList<Track> trackList = new ArrayList<>();
-//
-//                    HashMap<String,User> players = round.getPlayers();
-//                    for (User value : players.values()){
-//                        trackList.add(value.getSelectedTrack());
-//                    }
-//                    tracks = new Tracks(trackList);
+                    // get tracks
+                    ArrayList<Track> trackList = new ArrayList<>();
+
+                    HashMap<String,User> players = round.getPlayers();
+                    for (User value : players.values()){
+                        trackList.add(value.getSelectedTrack());
+                    }
+                    tracks = new Tracks(trackList);
                 }
             }
 

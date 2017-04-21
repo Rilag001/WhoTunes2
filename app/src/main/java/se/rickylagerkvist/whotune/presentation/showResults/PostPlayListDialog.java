@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,10 +35,11 @@ public class PostPlayListDialog extends DialogFragment {
     EditText editTextName;
     Tracks tracks;
 
-    public static PostPlayListDialog newInstance(String roundName){
+    public static PostPlayListDialog newInstance(String roundName, String tracks){
         PostPlayListDialog postPlayListDialog = new PostPlayListDialog();
         Bundle bundle = new Bundle();
         bundle.putString("roundName", roundName);
+        bundle.putString("tracks", tracks);
         postPlayListDialog.setArguments(bundle);
         return postPlayListDialog;
     }
@@ -93,7 +96,7 @@ public class PostPlayListDialog extends DialogFragment {
 
         SpotifyService spotifyService = ApiUtils.getSpotifyService();
 
-        PlayList playList = new PlayList(name);
+        PlayList playList = new PlayList(name, tracks);
 
         spotifyService.postPlayList(SharedPrefUtils.getSpotifyProfileId(context), playList, "Bearer " + SharedPrefUtils.getAuthToken(context), "application/json").enqueue(new Callback<PlayList>() {
             @Override
@@ -103,6 +106,8 @@ public class PostPlayListDialog extends DialogFragment {
                     Toast.makeText(context, "Playlist posted", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("PostPlayList", response.errorBody().toString());
+
                 }
             }
 

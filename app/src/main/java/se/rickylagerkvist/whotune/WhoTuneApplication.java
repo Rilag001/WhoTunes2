@@ -1,6 +1,7 @@
 package se.rickylagerkvist.whotune;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
 
